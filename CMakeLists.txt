@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.20)
+project(Trimana)
+
+# C standards
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+
+# C++ standards
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# cmake settings
+#list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+set(CMAKE_BUILD_TYPE Debug)
+set(BUILD_SHARED_LIBS ON)
+
+# external libraries build
+add_subdirectory(vendors)
+add_subdirectory(src/core)
+#add_subdirectory(src/engine)
