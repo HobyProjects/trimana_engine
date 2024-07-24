@@ -131,7 +131,7 @@ namespace trimana_core::events
      * operations and attributes that all events should have. It also provides
      * a mechanism to log events in debug mode.
      */
-    class TRIMANA_CORE_API event
+    class TRIMANA_API event
     {
     public:
         /**
@@ -183,7 +183,7 @@ namespace trimana_core::events
     /**
      * @brief The event_handler class handles events.
      */
-    class TRIMANA_CORE_API event_handler
+    class TRIMANA_API event_handler
     {
     public:
         /**
@@ -211,7 +211,7 @@ namespace trimana_core::events
         template <typename Ty, typename Func>
         bool dispatch(const Func &func)
         {
-            if (m_event.get_type() == Ty::get_static_type)
+            if (m_event.get_type() == Ty::get_static_type())
             {
                 m_event.handled |= func(static_cast<Ty &>(m_event));
                 return true;

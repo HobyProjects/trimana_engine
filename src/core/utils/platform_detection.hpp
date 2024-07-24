@@ -7,16 +7,11 @@
 
     #ifdef TRIMANA_BUILD_SHARED
         // Export symbols when building shared library
-        #define TRIMANA_CORE_API __declspec(dllexport)
+        #define TRIMANA_API __declspec(dllexport)
     #else
         // Import symbols when building static library
-        #define TRIMANA_CORE_API __declspec(dllimport)
+        #define TRIMANA_API __declspec(dllimport)
     #endif
-
-    // Define empty TRIMANA_CORE_API if not building shared library
-    #ifndef TRIMANA_BUILD_SHARED
-        #define TRIMANA_CORE_API 
-    #endif 
 
 #elif defined(__APPLE__) || defined(__MACH__)
     #include <TargetConditionals.h>

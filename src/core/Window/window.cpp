@@ -8,6 +8,33 @@ namespace trimana_core::window
      */
     window::window(const std::string &title)
     {
+        // Initialize the loggers with the log::init_loggers() function.
+        // This function returns a boolean indicating whether the loggers were
+        // successfully initialized or not.
+        bool log_init = loggers::log::init_loggers();
+
+        // Assert that the loggers were successfully initialized. If not,
+        // raise a critical error message with the log::get_core_logger()
+        // function.
+        TRIMANA_ASSERT(log_init == false, "Failed to initialize loggers");
+
+        // Initialize GLFW. This function returns a boolean indicating whether
+        // GLFW was successfully initialized or not. If not, raise a critical
+        // error message with the log::get_core_logger() function and return
+        // from the function.
+        if(!glfwInit())
+        {
+            // Raise a critical error message with the log::get_core_logger()
+            // function.
+            TRIMANA_CORE_CRITICAL("Failed to initialize GLFW");
+
+            // Return from the function.
+            return;
+        }
+
+        // Raise an info message with the log::get_core_logger() function.
+        TRIMANA_CORE_INFO("GLFW initialized");
+
         // Get the video mode of the primary monitor
         const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         if (mode != nullptr)
@@ -62,8 +89,8 @@ namespace trimana_core::window
         // glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR, &major);
         // glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR, &minor);
         // // Set the major and minor version of the OpenGL context
-        // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
-        // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 
         // Set the OpenGL profile to the core profile
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -82,7 +109,7 @@ namespace trimana_core::window
             // Get the size of the window's framebuffer
             glfwGetFramebufferSize(m_window, &m_window_framebuffer.width, &m_window_framebuffer.height);
             // Make the window the current context
-            glfwMakeContextCurrent(m_window);
+            glfwMakeContextCurrent(m_window); //[TODO]:This should BE move a differnt class when we workinh with opengl or anyother api
             // Set the swap interval to 1
             glfwSwapInterval(1);
 
@@ -90,6 +117,24 @@ namespace trimana_core::window
             m_attributes.is_active = true;
             m_attributes.is_focused = true;
             m_attributes.is_vsync_enabled = true;
+
+            // Enable experimental support for GLEW (required for core profile contexts)
+            glewExperimental = true;
+            
+            // Initialize GLEW
+            // GLEW (OpenGL Extension Wrangler Library) is a cross-platform open-source
+            // C/C++ extension loading library designed to provide efficient run-time
+            // mechanisms for determining which OpenGL extensions are supported on the
+            // target platform.
+            // Here, we are initializing GLEW to ensure that we can use the OpenGL
+            // extensions that our application requires.
+            // If 'glewInit()' returns 'GLEW_OK', then GLEW has been successfully
+            // initialized and we can proceed with using the required OpenGL extensions.
+            // If 'glewInit()' returns any other value, then GLEW initialization has
+            // failed and we should print an error message.
+            GLenum status = glewInit();
+            TRIMANA_ASSERT(status != GLEW_OK, "Failed to initialize GLEW");
+
             return;
         }
 
@@ -97,10 +142,23 @@ namespace trimana_core::window
         TRIMANA_CORE_ERROR("Failed to create window");
     }
 
+    /**
+     * @brief Destructor for the window class.
+     *
+     * This destructor is responsible for destroying the window and terminating the GLFW context.
+     * It first checks if the window is not nullptr, and if so, it destroys the window using glfwDestroyWindow.
+     * Then, it terminates the GLFW context using glfwTerminate.
+     */
     window::~window()
     {
         if(m_window != nullptr)
+        {
+            // Destroy the window using glfwDestroyWindow
             glfwDestroyWindow(m_window);
+        }
+
+        // Terminate the GLFW context using glfwTerminate
+        glfwTerminate();      
     }
 
 } // namespace trimana_core::window

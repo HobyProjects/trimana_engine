@@ -18,7 +18,7 @@ namespace trimana_core::events
      * The event type of this event is `event_type::window_resize`, and it falls
      * under the category of `event_categoty::window`.
      */
-    class TRIMANA_CORE_API window_resize_event : public event
+    class TRIMANA_API window_resize_event : public event
     {
     public:
         /**
@@ -109,7 +109,7 @@ namespace trimana_core::events
      * The event type of this event is `event_type::window_frame_resize`, and it
      * falls under the category of `event_categoty::window`.
      */
-    class TRIMANA_CORE_API window_frame_resize_event : public event
+    class TRIMANA_API window_frame_resize_event : public event
     {
     public:
         /**
@@ -198,7 +198,7 @@ namespace trimana_core::events
      * It is derived from the base class `event` and provides additional
      * functionality specific to the window close event.
      */
-    class TRIMANA_CORE_API window_close_event : public event
+    class TRIMANA_API window_close_event : public event
     {
     public:
         /**
@@ -319,7 +319,7 @@ namespace trimana_core::events
      *
      * This class defines an event that occurs when the window is minimized.
      */
-    class TRIMANA_CORE_API window_minimize_event : public event
+    class TRIMANA_API window_minimize_event : public event
     {
     public:
         /**
@@ -350,7 +350,7 @@ namespace trimana_core::events
      * This class defines an event that occurs when the window is maximized.
      * It is a derived class of the base class "event".
      */
-    class TRIMANA_CORE_API window_maximize_event : public event
+    class TRIMANA_API window_maximize_event : public event
     {
     public:
         /**
@@ -393,7 +393,7 @@ namespace trimana_core::events
      * This class defines an event that occurs when the window loses focus.
      * It is a derived class of the base class "event".
      */
-    class TRIMANA_CORE_API window_focus_lost_event : public event
+    class TRIMANA_API window_focus_lost_event : public event
     {
     public:
         /**
@@ -436,7 +436,7 @@ namespace trimana_core::events
      * This class defines an event that occurs when the window gains focus.
      * It is a derived class of the base class "event".
      */
-    class TRIMANA_CORE_API window_focus_gain_event : public event
+    class TRIMANA_API window_focus_gain_event : public event
     {
     public:
         /**

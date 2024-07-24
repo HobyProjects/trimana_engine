@@ -25,12 +25,30 @@
 #define GLFW_INCLUDE_NONE
 #endif
 
+/**
+ * Include the GLEW header file.
+ *
+ * The GLEW library is a cross-platform open-source C/C++ extension library
+ * designed to provide support for the OpenGL API on computers that don't
+ * natively support it.
+ *
+ * By including this header file, we ensure that the GLEW library is included
+ * and that we can use its functions and constants in our code.
+ *
+ * If the GLEW library is not already included, this header will include it.
+ * If the GLEW library is already included, this header will do nothing.
+ */
+#ifndef __glew_h__
+#include <GL/glew.h>
+#endif
+
 // Our cross-platform api
 #include <GLFW/glfw3.h>
 #endif
 
-#ifndef __log_h__
+#if !defined(__log_h__) && !defined(__assert_h__)
 #include "log.hpp"
+#include "assert.hpp"
 #endif
 
 namespace trimana_core::window
@@ -51,7 +69,7 @@ namespace trimana_core::window
      * All sizes are evaluated at run-time. These values cannot be changed. However, max_w and max_h
      * could change based on monitor change events.
      */
-    struct TRIMANA_CORE_API window_fixed_sizes
+    struct TRIMANA_API window_fixed_sizes
     {
         uint32_t min_w{NULL}; // Minimum width that the window can reach
         uint32_t min_h{NULL}; // Minimum height that the window can reach
@@ -66,7 +84,7 @@ namespace trimana_core::window
      * The `window_fixed_sizes` structure is used as a limiter for this struct,
      * keeping the width and height within the fixed size range.
      */
-    struct TRIMANA_CORE_API window_sizes
+    struct TRIMANA_API window_sizes
     {
         /**
          * @brief Width of the window.
@@ -84,7 +102,7 @@ namespace trimana_core::window
      *
      * This structure holds the x-axis and y-axis positions of the window.
      */
-    struct TRIMANA_CORE_API window_position
+    struct TRIMANA_API window_position
     {
         uint32_t posx{NULL}; // X-axis position of the window
         uint32_t posy{NULL}; // Y-axis position of the window
@@ -97,7 +115,7 @@ namespace trimana_core::window
      * double buffered, focused, active, and so on. The attributes are used to
      * control the behavior of a window.
      */
-    struct TRIMANA_CORE_API window_attributes
+    struct TRIMANA_API window_attributes
     {
         /**
          * @brief Indicates whether the window is double buffered.
@@ -180,7 +198,7 @@ namespace trimana_core::window
      * This class represents a window object, which encapsulates both a window
      * and its context.
      */
-    class TRIMANA_CORE_API window
+    class TRIMANA_API window
     {
     public:
         /**

@@ -15,7 +15,7 @@ namespace trimana_core::loggers
      *
      * This function initializes the loggers for the core and engine and sets their log levels.
      */
-    void log::init_loggers()
+    bool log::init_loggers()
     {
         // Create log sinks
         std::vector<spdlog::sink_ptr> logSinks;
@@ -37,5 +37,10 @@ namespace trimana_core::loggers
         spdlog::register_logger(m_engine_logger);
         m_engine_logger->set_level(spdlog::level::trace);
         m_engine_logger->flush_on(spdlog::level::trace);
+
+        if(m_core_logger != nullptr && m_engine_logger != nullptr)
+            return true;
+        else
+            return false;
     }
 }

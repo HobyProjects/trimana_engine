@@ -15,7 +15,7 @@ namespace trimana_core::events
      * event base class and provides additional functionality for handling
      * keyboard key press events.
      */
-    class TRIMANA_CORE_API keyboard_keypress_event : public event
+    class TRIMANA_API keyboard_keypress_event : public event
     {
     public:
         /**
@@ -67,7 +67,7 @@ namespace trimana_core::events
      * event base class and provides additional functionality for handling
      * keyboard key release events.
      */
-    class TRIMANA_CORE_API keyboard_keyrelease_event : public event
+    class TRIMANA_API keyboard_keyrelease_event : public event
     {
     public:
         /**
@@ -119,7 +119,7 @@ namespace trimana_core::events
      * event base class and provides additional functionality for handling
      * keyboard key repetition events.
      */
-    class TRIMANA_CORE_API keyboard_keyrepeate_event : public event
+    class TRIMANA_API keyboard_keyrepeate_event : public event
     {
     public:
         /**
@@ -171,7 +171,7 @@ namespace trimana_core::events
      * event base class and provides additional functionality for handling
      * keyboard character input events.
      */
-    class TRIMANA_CORE_API keyboard_keychar_event : public event
+    class TRIMANA_API keyboard_keychar_event : public event
     {
     public:
         /**

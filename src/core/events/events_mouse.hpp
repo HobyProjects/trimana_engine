@@ -32,7 +32,7 @@ namespace trimana_core::events
      * The class has a member function button() which returns the button that was
      * pressed.
      */
-    class TRIMANA_CORE_API mouse_button_press_event : public event
+    class TRIMANA_API mouse_button_press_event : public event
     {
     public:
         /**
@@ -97,7 +97,7 @@ namespace trimana_core::events
      * The class has a member function button() which returns the button that was
      * released.
      */
-    class TRIMANA_CORE_API mouse_button_release_event : public event
+    class TRIMANA_API mouse_button_release_event : public event
     {
     public:
         /**
@@ -140,7 +140,7 @@ namespace trimana_core::events
     /**
      * @brief Represents an event that occurs when the mouse wheel is scrolled.
      */
-    class TRIMANA_CORE_API mouse_wheel_scroll_event : public event
+    class TRIMANA_API mouse_wheel_scroll_event : public event
     {
     public:
         /**
@@ -195,7 +195,7 @@ namespace trimana_core::events
 
     // This class represents an event that occurs when the cursor position changes.
     // It derives from the `event` base class.
-    class TRIMANA_CORE_API mouse_cursorpos_change_event : public event
+    class TRIMANA_API mouse_cursorpos_change_event : public event
     {
     public:
         // Constructor for the mouse_cursorpos_change_event class.
@@ -228,7 +228,7 @@ namespace trimana_core::events
     };
     // This class represents an event that occurs when the cursor enters a window.
     // It derives from the `event` base class.
-    class TRIMANA_CORE_API mouse_cursor_enter_event : public event
+    class TRIMANA_API mouse_cursor_enter_event : public event
     {
     public:
         // Default constructor for the mouse_cursor_enter_event class.
@@ -248,7 +248,7 @@ namespace trimana_core::events
 
     // This class represents an event that occurs when the cursor leaves a window.
     // It derives from the `event` base class.
-    class TRIMANA_CORE_API mouse_cursor_leave_event : public event
+    class TRIMANA_API mouse_cursor_leave_event : public event
     {
     public:
         // Default constructor for the mouse_cursor_leave_event class.

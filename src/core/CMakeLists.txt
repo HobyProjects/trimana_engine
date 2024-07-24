@@ -14,6 +14,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/events # Events source directory
     ${PROJECT_SOURCE_DIR}/src/core/utils # Utils source directory
     ${PROJECT_SOURCE_DIR}/src/core/window # Window source directory
+    ${PROJECT_SOURCE_DIR}/src/core/layers
 )
 
 # Set the header files for the trimana_core library
@@ -27,6 +28,8 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/utils/log.hpp # Log header file
     ${PROJECT_SOURCE_DIR}/src/core/utils/platform_detection.hpp # Platform detection header file
     ${PROJECT_SOURCE_DIR}/src/core/window/window.hpp # Window header file
+    ${PROJECT_SOURCE_DIR}/src/core/layers/layer.hpp
+    ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.hpp
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -36,6 +39,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/utils/log.cpp # Log source file
     ${PROJECT_SOURCE_DIR}/src/core/events/events_receiver.cpp # Events receiver source file
     ${PROJECT_SOURCE_DIR}/src/core/window/window.cpp # Window source file
+    ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.cpp
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library

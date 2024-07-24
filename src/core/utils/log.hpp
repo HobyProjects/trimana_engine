@@ -35,7 +35,7 @@ namespace trimana_core::loggers
      * This allows the loggers to be used from any part of the program, without
      * having to worry about the lifetime of the logger.
      */
-    class TRIMANA_CORE_API log
+    class TRIMANA_API log
     {
     public:
         /**
@@ -43,7 +43,7 @@ namespace trimana_core::loggers
          * 
          * This method is called implicitly when the class is first accessed.
          */
-        static void init_loggers();
+        static bool init_loggers();
 
         /**
          * @brief Returns a reference to the core logger.
@@ -86,45 +86,17 @@ namespace trimana_core::loggers
 
 
 // Define macros for logging with the core logger.
-#define TRIMANA_CORE_TRACE(...) \
-    /* Log a trace message with the core logger. */
-    trimana_core::loggers::log::get_core_logger()->trace(__VA_ARGS__)
-
-#define TRIMANA_CORE_INFO(...) \
-    /* Log an info message with the core logger. */
-    trimana_core::loggers::log::get_core_logger()->info(__VA_ARGS__)
-
-#define TRIMANA_CORE_WARN(...) \
-    /* Log a warning message with the core logger. */
-    trimana_core::loggers::log::get_core_logger()->warn(__VA_ARGS__)
-
-#define TRIMANA_CORE_ERROR(...) \
-    /* Log an error message with the core logger. */
-    trimana_core::loggers::log::get_core_logger()->error(__VA_ARGS__)
-
-#define TRIMANA_CORE_CRITICAL(...) \
-    /* Log a critical message with the core logger. */
-    trimana_core::loggers::log::get_core_logger()->critical(__VA_ARGS__)
+#define TRIMANA_CORE_TRACE(...) trimana_core::loggers::log::get_core_logger()->trace(__VA_ARGS__)
+#define TRIMANA_CORE_INFO(...) trimana_core::loggers::log::get_core_logger()->info(__VA_ARGS__)
+#define TRIMANA_CORE_WARN(...) trimana_core::loggers::log::get_core_logger()->warn(__VA_ARGS__)
+#define TRIMANA_CORE_ERROR(...) trimana_core::loggers::log::get_core_logger()->error(__VA_ARGS__)
+#define TRIMANA_CORE_CRITICAL(...) trimana_core::loggers::log::get_core_logger()->critical(__VA_ARGS__)
 
 // Define macros for logging with the engine logger.
-#define TRIMANA_TRACE(...) \
-    /* Log a trace message with the engine logger. */
-    trimana_core::loggers::log::get_engine_logger()->trace(__VA_ARGS__)
-
-#define TRIMANA_INFO(...) \
-    /* Log an info message with the engine logger. */
-    trimana_core::loggers::log::get_engine_logger()->info(__VA_ARGS__)
-
-#define TRIMANA_WARN(...) \
-    /* Log a warning message with the engine logger. */
-    trimana_core::loggers::log::get_engine_logger()->warn(__VA_ARGS__)
-
-#define TRIMANA_ERROR(...) \
-    /* Log an error message with the engine logger. */
-    trimana_core::loggers::log::get_engine_logger()->error(__VA_ARGS__)
-
-#define TRIMANA_CRITICAL(...) \
-    /* Log a critical message with the engine logger. */
-    trimana_core::loggers::log::get_engine_logger()->critical(__VA_ARGS__)
+#define TRIMANA_TRACE(...) trimana_core::loggers::log::get_engine_logger()->trace(__VA_ARGS__)
+#define TRIMANA_INFO(...) trimana_core::loggers::log::get_engine_logger()->info(__VA_ARGS__)
+#define TRIMANA_WARN(...) trimana_core::loggers::log::get_engine_logger()->warn(__VA_ARGS__)
+#define TRIMANA_ERROR(...) trimana_core::loggers::log::get_engine_logger()->error(__VA_ARGS__)
+#define TRIMANA_CRITICAL(...) trimana_core::loggers::log::get_engine_logger()->critical(__VA_ARGS__)
 
 #endif // __log_h__
