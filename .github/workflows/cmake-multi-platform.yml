@@ -43,11 +43,11 @@ jobs:
             c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
-        with:
-            submodules: 'true'
 
     steps:
     - uses: actions/checkout@v4
+      with:
+          submodules: 'true'
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
