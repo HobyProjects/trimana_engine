@@ -30,6 +30,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/window/window.hpp # Window header file
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer.hpp
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.hpp
+    ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.hpp
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -40,6 +41,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/events/events_receiver.cpp # Events receiver source file
     ${PROJECT_SOURCE_DIR}/src/core/window/window.cpp # Window source file
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.cpp
+    ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
@@ -48,6 +50,7 @@ if(NOT BUILD_SHARED_LIBS)
         ${TRIMANA_CORE_LIBRARY} STATIC # Create a static library named trimana_core
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
+        ${IMGUI_HEADERS} # Headers for the ImGui library
     )
 
 # If BUILD_SHARED_LIBS is set, create a shared library
@@ -57,6 +60,7 @@ else()
         ${TRIMANA_CORE_LIBRARY} SHARED # Create a shared library named trimana_core
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
+        ${IMGUI_HEADERS} # Headers for the ImGui library
     )
 endif()
 
@@ -64,6 +68,12 @@ endif()
 target_include_directories(
     ${TRIMANA_CORE_LIBRARY} PUBLIC
     ${TRIMANA_CORE_SOURCES_DIR} # Include directories for the library sources
+
+    # The following variables are used to specify the directories for ImGui and its backends.
+    # - IMGUI_DIR: The directory for the ImGui library.
+    # - IMGUI_BACKENDS_DIR: The directory for the ImGui backends.
+    ${IMGUI_DIR}
+    ${IMGUI_BACKENDS_DIR}
 )
 
 # Set the public link libraries for the trimana_core library
@@ -72,6 +82,7 @@ target_link_libraries(
     glfw # Link glfw library
     spdlog::spdlog_header_only # Link spdlog library
     libglew_static # Link glew library
+    ImGui::ImGui # Link imgui library
 )
 
 # Create an alias for the trimana_core library

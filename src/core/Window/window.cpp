@@ -1,6 +1,6 @@
 #include "window.hpp"
 
-namespace trimana_core::window
+namespace trimana_core::windows
 {
     /**
      * @brief Creates a window with a title.

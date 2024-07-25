@@ -4,10 +4,27 @@
 #include <string>
 #include <functional>
 
-#if !defined(__log_h__) && !defined(__platform_detection_h__)
 #include "log.hpp"
 #include "platform_detection.hpp"
-#endif
+
+/**
+ * @def EVENTS_CALLBACK(func)
+ * @brief Creates a std::bind object from a member function to be used as a callback for events.
+ *
+ * This macro takes a member function 'func' as an argument and returns a std::bind object that
+ * can be used as a callback for events. The std::bind object is created by binding the member
+ * function 'func' to the current object instance (i.e. 'this') and passing the first argument
+ * of the member function as a std::placeholder::_1 argument.
+ *
+ * The resulting std::bind object can be used as a callback for events, and will call the
+ * member function 'func' with the first argument passed to the callback as the first argument
+ * to the member function.
+ *
+ * @param[in] func The member function to be bound to the current object as a callback.
+ *
+ * @return A std::bind object that can be used as a callback for events.
+ */
+#define EVENTS_CALLBACK(func) std::bind(&func, this, std::placeholders::_1)
 
 namespace trimana_core::events
 {

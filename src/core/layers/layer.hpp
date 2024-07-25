@@ -3,9 +3,8 @@
 
 #include <string>
 
-#ifndef __platform_detection_h__
 #include "platform_detection.hpp"
-#endif
+#include "events.hpp"
 
 namespace trimana_core::layers
 {
@@ -85,7 +84,7 @@ namespace trimana_core::layers
          * This method is called by the engine when an event is triggered. The layer can use
          * this method to handle the event and perform any necessary actions in response to the event.
          */
-        virtual void on_event() {}
+        virtual void on_event(trimana_core::events::event &e) {}
 
         /**
          * @brief Get the name of the layer.

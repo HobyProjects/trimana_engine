@@ -34,24 +34,19 @@
  *
  * By including this header file, we ensure that the GLEW library is included
  * and that we can use its functions and constants in our code.
- *
- * If the GLEW library is not already included, this header will include it.
- * If the GLEW library is already included, this header will do nothing.
  */
-#ifndef __glew_h__
 #include <GL/glew.h>
-#endif
-
-// Our cross-platform api
 #include <GLFW/glfw3.h>
 #endif
 
-#if !defined(__log_h__) && !defined(__assert_h__)
-#include "log.hpp"
-#include "assert.hpp"
+#ifdef APIENTRY
+#undef APIENTRY
 #endif
 
-namespace trimana_core::window
+#include "log.hpp"
+#include "assert.hpp"
+
+namespace trimana_core::windows
 {
     /**
      * @brief

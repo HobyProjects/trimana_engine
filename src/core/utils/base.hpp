@@ -2,10 +2,7 @@
 #define __base_h__
 
 #include <memory>
-
-#ifndef __platform_detection_h__
 #include "platform_detection.hpp"
-#endif
 
 #ifdef _DEBUG
     #if defined(TRIMANA_PLATFORM_WINDOWS)

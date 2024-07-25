@@ -1,9 +1,7 @@
 #ifndef __events_mouse_h__
 #define __events_mouse_h__
 
-#ifndef __events_h__
 #include "events.hpp"
-#endif
 
 namespace trimana_core::events
 {

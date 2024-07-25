@@ -14,26 +14,6 @@
 #ifndef __window_h__
 #include "window.hpp"
 #endif
-
-/**
- * @def EVENTS_CALLBACK(func)
- * @brief Creates a std::bind object from a member function to be used as a callback for events.
- *
- * This macro takes a member function 'func' as an argument and returns a std::bind object that
- * can be used as a callback for events. The std::bind object is created by binding the member
- * function 'func' to the current object instance (i.e. 'this') and passing the first argument
- * of the member function as a std::placeholder::_1 argument.
- *
- * The resulting std::bind object can be used as a callback for events, and will call the
- * member function 'func' with the first argument passed to the callback as the first argument
- * to the member function.
- *
- * @param[in] func The member function to be bound to the current object as a callback.
- *
- * @return A std::bind object that can be used as a callback for events.
- */
-#define EVENTS_CALLBACK(func) std::bind(&func, this, std::placeholders::_1)
-
 namespace trimana_core::events
 {
     /**
@@ -80,7 +60,7 @@ namespace trimana_core::events
          * @param window The window object for which the events are being handled.
          * @param callback The callback function to be called when events occur.
          */
-        static void set_eventts_callback(std::shared_ptr<trimana_core::window::window> window, const events_callback_func &callback);
+        static void set_eventts_callback(std::shared_ptr<trimana_core::windows::window> window, const events_callback_func &callback);
 
     private:
         // The callback function that will be called when events occur.
@@ -89,7 +69,7 @@ namespace trimana_core::events
         // The weak pointer to the window object for which the events are being
         // handled. This is used to prevent circular references and to allow the
         // window object to be destroyed if it is no longer needed.
-        static std::weak_ptr<trimana_core::window::window> m_window;
+        static std::weak_ptr<trimana_core::windows::window> m_window;
     };
 }
 

@@ -10,7 +10,7 @@ namespace trimana_core::events
     /**
      * The weak pointer to the window.
      */
-    std::weak_ptr<trimana_core::window::window> events_receiver::m_window;
+    std::weak_ptr<trimana_core::windows::window> events_receiver::m_window;
 
 
     /**
@@ -44,7 +44,7 @@ namespace trimana_core::events
      * occur. This function should take a reference to an event object as a parameter
      * and perform any necessary actions based on the event type.
      */
-    void events_receiver::set_eventts_callback(std::shared_ptr<window::window> window, const events_callback_func &callback)
+    void events_receiver::set_eventts_callback(std::shared_ptr<windows::window> window, const events_callback_func &callback)
     {
         m_events_callback = callback;
         m_window = window;
@@ -105,7 +105,7 @@ namespace trimana_core::events
             if(!m_window.expired())
             {
                 auto window_ptr = m_window.lock();
-                window_ptr->get_attributes().state = window::window_status::maximized;
+                window_ptr->get_attributes().state = windows::window_status::maximized;
                 window_maximize_event window_maximize;
                 m_events_callback(window_maximize);
             }
@@ -116,7 +116,7 @@ namespace trimana_core::events
             if(!m_window.expired())
             {
                 auto window_ptr = m_window.lock();
-                window_ptr->get_attributes().state = window::window_status::minimized;
+                window_ptr->get_attributes().state = windows::window_status::minimized;
                 window_minimize_event window_minimize;
                 m_events_callback(window_minimize);
             }

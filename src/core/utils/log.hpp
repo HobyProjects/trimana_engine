@@ -10,9 +10,7 @@
 #include <spdlog/fmt/ostr.h>
 #pragma warning(pop)
 
-#ifndef __platform_detection_h__
 #include "platform_detection.hpp"
-#endif
 
 namespace trimana_core::loggers
 {
