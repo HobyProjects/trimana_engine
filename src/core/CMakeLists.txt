@@ -38,8 +38,11 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
 
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gcontext.hpp # GContext header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.hpp # GBuffer header file
+
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.hpp # OpenGL buffers header file
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -67,6 +70,7 @@ if(NOT BUILD_SHARED_LIBS)
 
 # If BUILD_SHARED_LIBS is set, create a shared library
 else()
+    
     add_compile_definitions(TRIMANA_BUILD_SHARED) # Define the TRIMANA_BUILD_SHARED macro
     add_library(
         ${TRIMANA_CORE_LIBRARY} SHARED # Create a shared library named trimana_core
@@ -83,8 +87,8 @@ else()
         ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/
         COMMENT "Copying glew runtimes into build directory"
     )
-
     add_dependencies(${TRIMANA_CORE_LIBRARY} GLEW_COPY_RUNTIMES) # Add the GLEW_COPY_RUNTIMES target as a dependency
+
 endif()
 
 # Set the public include directories for the trimana_core library
