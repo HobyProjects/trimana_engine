@@ -4,7 +4,6 @@
 #include "assert.hpp"
 #endif
 
-
 /**
  * Maps a GLFW key code to the corresponding ImGui key code.
  *
@@ -258,7 +257,7 @@ using namespace trimana_core::windows;
 using namespace trimana_core::events;
 
 namespace trimana_core::layers
-{ 
+{
     imgui_layer::imgui_layer(std::shared_ptr<window> window, ui_color_scheme color_scheme) : m_window(window), m_color_scheme(color_scheme), layer("imgui_layer") {}
 
     void imgui_layer::on_attach()
@@ -285,6 +284,8 @@ namespace trimana_core::layers
 
         auto window_ptr = m_window.lock();
         ImGui_ImplGlfw_InitForOpenGL(window_ptr->get_native_window(), false);
+
+        //[TODO]: When we have a renderer, we can get the version of the renderer and set the version of the GLSL
         uint32_t major{NULL}, minor{NULL};
         major = glfwGetWindowAttrib(window_ptr->get_native_window(), GLFW_CONTEXT_VERSION_MAJOR);
         minor = glfwGetWindowAttrib(window_ptr->get_native_window(), GLFW_CONTEXT_VERSION_MINOR);
@@ -316,6 +317,8 @@ namespace trimana_core::layers
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        create_dockspace();
 
         ImGui::ShowDemoWindow();
 
@@ -436,6 +439,55 @@ namespace trimana_core::layers
             style.WindowRounding = 2.0f;
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
+    }
+
+    void imgui_layer::create_dockspace()
+    {
+        // ImGui DockSpace
+        static bool opt_fullscreen = true;
+        static bool opt_padding = false;
+        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+
+        if (opt_fullscreen)
+        {
+            const ImGuiViewport *viewport = ImGui::GetMainViewport();
+            ImGui::SetNextWindowPos(viewport->WorkPos);
+            ImGui::SetNextWindowSize(viewport->WorkSize);
+            ImGui::SetNextWindowViewport(viewport->ID);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+            window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+            window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+        }
+        else
+        {
+            dockspace_flags &= -ImGuiDockNodeFlags_PassthruCentralNode;
+        }
+
+        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+            window_flags |= ImGuiWindowFlags_NoBackground;
+
+        if (!opt_padding)
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+        static bool show_dockspace = true;
+        ImGui::Begin("Dockspace", &show_dockspace, window_flags);
+
+        if (!opt_padding)
+            ImGui::PopStyleVar();
+
+        if (opt_fullscreen)
+            ImGui::PopStyleVar(2);
+
+        ImGuiIO &io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+        {
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+        }
+
+        ImGui::End();
     }
 
     bool imgui_layer::on_window_frame_resize(window_frame_resize_event &e)

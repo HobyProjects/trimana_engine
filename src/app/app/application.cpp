@@ -2,6 +2,7 @@
 
 using namespace trimana_core::windows;
 using namespace trimana_core::events;
+using namespace trimana_core::inputs;
 using namespace trimana_core::layers;
 
 namespace trimana_engine::app
@@ -10,8 +11,9 @@ namespace trimana_engine::app
     {
         m_window = std::make_shared<window>("Trimana Engine");
         events_receiver::set_eventts_callback(m_window, EVENTS_CALLBACK(application::on_events));
-        m_layer_stack = std::make_shared<layer_stack>();
+        input::target_window(m_window);
 
+        m_layer_stack = std::make_shared<layer_stack>();
         push_layer(std::make_shared<imgui_layer>(m_window));
     }
 

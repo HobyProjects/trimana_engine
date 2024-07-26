@@ -26,13 +26,16 @@ namespace trimana_core::layers
 
     /**
      * @class imgui_layer
-     * @brief Represents an ImGui layer that can be added to a window.
+     * @brief Represents an ImGui layer that can be attached to a window.
+     *
+     * The `imgui_layer` class is a concrete implementation of the `layer` base class.
+     * It provides functionality for rendering ImGui user interfaces and handling events.
      */
     class TRIMANA_API imgui_layer final : public layer
     {
     public:
         /**
-         * @brief Constructs an imgui_layer object.
+         * @brief Constructs an `imgui_layer` object.
          * @param window The window to attach the layer to.
          * @param color_scheme The color scheme to use for the UI.
          */
@@ -74,6 +77,14 @@ namespace trimana_core::layers
          * @brief Sets the light color scheme for the UI.
          */
         void use_color_scheme_light();
+
+        /**
+         * @brief Creates a dockspace in the ImGui layer.
+         *
+         * This function is responsible for creating a dockspace in the ImGui layer.
+         * It allows for docking and organizing ImGui windows within the application.
+         */
+        void create_dockspace();
 
         /**
          * @brief Event handler for window frame resize events.
