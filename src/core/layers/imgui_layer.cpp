@@ -284,13 +284,7 @@ namespace trimana_core::layers
 
         auto window_ptr = m_window.lock();
         ImGui_ImplGlfw_InitForOpenGL(window_ptr->get_native_window(), false);
-
-        //[TODO]: When we have a renderer, we can get the version of the renderer and set the version of the GLSL
-        uint32_t major{NULL}, minor{NULL};
-        major = glfwGetWindowAttrib(window_ptr->get_native_window(), GLFW_CONTEXT_VERSION_MAJOR);
-        minor = glfwGetWindowAttrib(window_ptr->get_native_window(), GLFW_CONTEXT_VERSION_MINOR);
-        TRIMANA_CORE_INFO("OpenGL GLSL version: {0}.{1}", major, minor);
-        ImGui_ImplOpenGL3_Init("#version 440 core");
+        ImGui_ImplOpenGL3_Init(window_ptr->get_context()->get_gl_info()->glsl_version().c_str());
 
         if (m_color_scheme == ui_color_scheme::dark)
             use_color_scheme_dark();
@@ -318,7 +312,8 @@ namespace trimana_core::layers
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        create_dockspace();
+        //[TODO]: enable dockspace when we working with framebuffers / multiple viewports
+        //create_dockspace();
 
         ImGui::ShowDemoWindow();
 

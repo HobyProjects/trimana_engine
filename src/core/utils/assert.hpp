@@ -4,9 +4,8 @@
 #include <filesystem>
 #include <cassert>
 
-#ifndef __base_h__
+#include "log.hpp"
 #include "base.hpp"
-#endif
 
 // The following block defines the TRIMANA_ASSERT macro. This macro is used to check if a given expression is true.
 // If the expression is true, nothing happens. If the expression is false, an error message is printed to the console

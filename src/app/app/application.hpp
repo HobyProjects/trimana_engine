@@ -120,6 +120,9 @@ namespace trimana_engine::app
          * In this case, the `std::shared_ptr` is used to manage the lifetime of an object of type `trimana_core::layers::layer_stack`.
          */
         std::shared_ptr<trimana_core::layers::layer_stack> m_layer_stack;
+
+        //TEMP
+        unsigned int m_vertex_array, m_vertex_buffer, m_index_buffer;
     };
 }
 #endif // __application_h__

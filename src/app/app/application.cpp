@@ -15,32 +15,56 @@ namespace trimana_engine::app
 
         m_layer_stack = std::make_shared<layer_stack>();
         push_layer(std::make_shared<imgui_layer>(m_window));
+
+        glGenVertexArrays(1, &m_vertex_array);
+        glBindVertexArray(m_vertex_array);
+
+        glGenBuffers(1, &m_vertex_buffer);
+        glBindBuffer(GL_ARRAY_BUFFER, m_vertex_buffer);
+
+        float vertices[3 * 3] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.0f, 0.5f, 0.0f};
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+        glGenBuffers(1, &m_index_buffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_index_buffer);
+
+        unsigned int indices[3] = {0, 1, 2};
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     }
 
     void application::run()
     {
         while (m_window->get_attributes().is_active)
         {
-            glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            //Do Something
-            for(std::shared_ptr<layer> layer : *m_layer_stack)
+            glBindVertexArray(m_vertex_array);
+            glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+            glBindVertexArray(0);
+
+            for (std::shared_ptr<layer> layer : *m_layer_stack)
                 layer->on_update();
 
-            glfwSwapBuffers(m_window->get_native_window());
+            m_window->swap_buffers();
             events_receiver::poll_events();
         }
     }
 
-    void application::on_events(trimana_core::events::event &e)
+    void application::on_events(event &e)
     {
         event_handler handler(e);
         handler.dispatch<window_close_event>(EVENTS_CALLBACK(application::on_window_close));
 
-        for(std::vector<std::shared_ptr<layer>>::reverse_iterator it = m_layer_stack->rbegin(); it != m_layer_stack->rend(); ++it)
+        for (std::vector<std::shared_ptr<layer>>::reverse_iterator it = m_layer_stack->rbegin(); it != m_layer_stack->rend(); ++it)
         {
-            if(e.handled)
+            if (e.handled)
                 break;
             (*it)->on_event(e);
         }
@@ -50,20 +74,24 @@ namespace trimana_engine::app
 #endif
     }
 
-    void application::push_layer(std::shared_ptr<trimana_core::layers::layer> layer)
+    void application::push_layer(std::shared_ptr<layer> layer)
     {
         m_layer_stack->push_layer(layer);
         layer->on_attach();
     }
 
-    void application::push_overlay(std::shared_ptr<trimana_core::layers::layer> overlay)
+    void application::push_overlay(std::shared_ptr<layer> overlay)
     {
         m_layer_stack->push_overlay(overlay);
         overlay->on_attach();
     }
 
-    bool application::on_window_close(trimana_core::events::event &e)
+    bool application::on_window_close(event &e)
     {
+        glDeleteVertexArrays(1, &m_vertex_array);
+        glDeleteBuffers(1, &m_vertex_buffer);
+        glDeleteBuffers(1, &m_index_buffer);
+        
         m_window->get_attributes().is_active = false;
         return true;
     }

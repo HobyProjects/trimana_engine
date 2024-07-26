@@ -13,6 +13,9 @@
         #define TRIMANA_API __declspec(dllimport)
     #endif
 
+    //NOTE: This is a temporary solution for OpenGL renderer. Until we move on to DirectX
+    #define TRIMANA_PRIMARY_RENDERER_OPENGL
+
 #elif defined(__APPLE__) || defined(__MACH__)
     #include <TargetConditionals.h>
     

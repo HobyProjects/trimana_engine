@@ -82,13 +82,6 @@ namespace trimana_core::windows
         // Enable the stencil buffer
         glfwWindowHint(GLFW_STENCIL_BITS, GLFW_TRUE);
 
-
-        //[TODO]:Check this after we get opengl version info 
-        // // Get the major and minor version of the OpenGL context
-        // int major, minor;
-        // glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR, &major);
-        // glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MINOR, &minor);
-        // // Set the major and minor version of the OpenGL context
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 
@@ -108,33 +101,15 @@ namespace trimana_core::windows
             glfwSetWindowSizeLimits(m_window, m_fixed_sizes.min_w, m_fixed_sizes.min_h, GLFW_DONT_CARE, GLFW_DONT_CARE);
             // Get the size of the window's framebuffer
             glfwGetFramebufferSize(m_window, &m_window_framebuffer.width, &m_window_framebuffer.height);
+
             // Make the window the current context
-            glfwMakeContextCurrent(m_window); //[TODO]:This should BE move a differnt class when we workinh with opengl or anyother api
-            // Set the swap interval to 1
-            glfwSwapInterval(1);
+            m_context = std::make_shared<renderer::opengl::gl_context>(m_window);
+            m_context->init();
 
             // Set the window's attributes
             m_attributes.is_active = true;
             m_attributes.is_focused = true;
             m_attributes.is_vsync_enabled = true;
-
-            // Enable experimental support for GLEW (required for core profile contexts)
-            glewExperimental = true;
-            
-            // Initialize GLEW
-            // GLEW (OpenGL Extension Wrangler Library) is a cross-platform open-source
-            // C/C++ extension loading library designed to provide efficient run-time
-            // mechanisms for determining which OpenGL extensions are supported on the
-            // target platform.
-            // Here, we are initializing GLEW to ensure that we can use the OpenGL
-            // extensions that our application requires.
-            // If 'glewInit()' returns 'GLEW_OK', then GLEW has been successfully
-            // initialized and we can proceed with using the required OpenGL extensions.
-            // If 'glewInit()' returns any other value, then GLEW initialization has
-            // failed and we should print an error message.
-            GLenum status = glewInit();
-            TRIMANA_ASSERT(status != GLEW_OK, "Failed to initialize GLEW");
-
             return;
         }
 
@@ -159,6 +134,12 @@ namespace trimana_core::windows
 
         // Terminate the GLFW context using glfwTerminate
         glfwTerminate();      
+    }
+
+    void window::swap_buffers() const
+    {
+        if(m_attributes.is_vsync_enabled)
+            m_context->swap_buffers();
     }
 
 } // namespace trimana_core::window

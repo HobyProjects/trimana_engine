@@ -9,10 +9,17 @@ add_subdirectory("spdlog" EXCLUDE_FROM_ALL)
 # add_subdirectory("glm" EXCLUDE_FROM_ALL)
 
 #glew lib Configuration
-set(glew-cmake_BUILD_STATIC ON)
-set(glew-cmake_BUILD_SHARED OFF)
+if(NOT BUILD_SHARED_LIBS)
+    set(glew-cmake_BUILD_SHARED OFF)
+    set(glew-cmake_BUILD_STATIC ON)
+else()
+    set(glew-cmake_BUILD_SHARED ON)
+    set(glew-cmake_BUILD_STATIC OFF)
+endif()
+
 set(ONLY_LIBS ON)
 add_subdirectory("glew-cmake" EXCLUDE_FROM_ALL)
+
 
 # # assimp lib configuration
 # add_subdirectory("assimp" EXCLUDE_FROM_ALL)

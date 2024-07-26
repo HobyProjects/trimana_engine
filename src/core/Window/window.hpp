@@ -1,50 +1,12 @@
 #ifndef __window_h__
 #define __window_h__
 
-#ifndef _glfw3_h_
-
-/**
- * @brief
- * GLFW_INCLUDE_NONE is special macro
- * that helps us void colletions between
- * glfw.h and glew.h headers. This macro
- * is used to prevent GLFW header from
- * including OpenGL headers. This is
- * needed because GLEW library also
- * includes OpenGL headers and there can
- * be conflicts between them.
- *
- * @note
- * This macro is used to prevent GLFW
- * header from including OpenGL headers
- * only when GLEW is included. When GLEW
- * is not included, GLFW header will
- * include OpenGL headers as usual.
- */
-#ifndef GLFW_INCLUDE_NONE
-#define GLFW_INCLUDE_NONE
-#endif
-
-/**
- * Include the GLEW header file.
- *
- * The GLEW library is a cross-platform open-source C/C++ extension library
- * designed to provide support for the OpenGL API on computers that don't
- * natively support it.
- *
- * By including this header file, we ensure that the GLEW library is included
- * and that we can use its functions and constants in our code.
- */
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#endif
-
-#ifdef APIENTRY
-#undef APIENTRY
-#endif
-
 #include "log.hpp"
 #include "assert.hpp"
+
+#ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
+#include "gl_context.hpp"
+#endif
 
 namespace trimana_core::windows
 {
@@ -294,12 +256,32 @@ namespace trimana_core::windows
          *
          * @return A reference to the window framebuffer sizes.
          */
-        window_framebuffer_sizes& get_framebuffer_sizes() { return m_window_framebuffer; }
+        window_framebuffer_sizes &get_framebuffer_sizes() { return m_window_framebuffer; }
+
+        /**
+         * @brief Swaps the front and back buffers of the window.
+         *
+         * This function is responsible for swapping the front and back buffers of the window,
+         * which is necessary for displaying any changes made to the window's content.
+         * It is typically called at the end of each frame in a rendering loop.
+         */
+        void swap_buffers() const;
+
+#ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
+
+        /**
+         * @brief Retrieves the OpenGL context associated with the window.
+         *
+         * @return The OpenGL context associated with the window.
+         */
+        std::shared_ptr<renderer::opengl::gl_context> get_context() const { return m_context; }
+
+#endif // TRIMANA_PRIMARY_RENDERER_OPENGL
 
     private:
         /**
          * @brief m_window - The native window pointer.
-         * 
+         *
          * This member variable holds a pointer to the native window.
          * The native window is the platform-specific window that
          * represents the window on the screen.
@@ -308,7 +290,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_attributes - The window attributes.
-         * 
+         *
          * This member variable holds the attributes of the window.
          * The attributes define various properties of the window,
          * such as whether it is resizable, whether it has a title bar,
@@ -318,7 +300,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_sizes - The window sizes.
-         * 
+         *
          * This member variable holds the sizes of the window.
          * The sizes include the width and height of the window.
          */
@@ -326,7 +308,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_position - The window position.
-         * 
+         *
          * This member variable holds the position of the window on the screen.
          * The position includes the x and y coordinates of the top-left corner
          * of the window.
@@ -335,7 +317,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_fixed_sizes - The window fixed sizes.
-         * 
+         *
          * This member variable holds the fixed sizes of the window.
          * The fixed sizes define the minimum and maximum sizes that the window
          * can be resized to.
@@ -344,7 +326,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_vid_modes - The window video modes.
-         * 
+         *
          * This member variable holds the video modes of the window.
          * The video modes define the various resolutions and refresh rates
          * that the window can be set to.
@@ -353,7 +335,7 @@ namespace trimana_core::windows
 
         /**
          * @brief m_window_framebuffer - The window framebuffer sizes.
-         * 
+         *
          * This structure holds the sizes of the window framebuffer.
          * The framebuffer is the region where the pixels are drawn.
          * The dimensions of the framebuffer are usually the same as the
@@ -361,6 +343,19 @@ namespace trimana_core::windows
          * displays.
          */
         window_framebuffer_sizes m_window_framebuffer{};
+
+#ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
+
+        /**
+         * @brief m_context - The OpenGL context.
+         *
+         * This member variable holds the OpenGL context associated with the window.
+         * The OpenGL context is used to render graphics to the window.
+         */
+        std::shared_ptr<renderer::opengl::gl_context> m_context{nullptr};
+
+#endif
+
     };
 
 }

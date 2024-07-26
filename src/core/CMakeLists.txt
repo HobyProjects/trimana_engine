@@ -16,6 +16,9 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/window # Window source directory
     ${PROJECT_SOURCE_DIR}/src/core/layers # Layers source directory
     ${PROJECT_SOURCE_DIR}/src/core/inputs # Inputs source directory
+    ${PROJECT_SOURCE_DIR}/src/core/renderer # Renderer source directory
+
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl # OpenGL source directory
 )
 
 # Set the header files for the trimana_core library
@@ -33,6 +36,10 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.hpp # Layer stack header file
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.hpp # ImGui layer header file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
+
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/gcontext.hpp # GContext header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -45,6 +52,8 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.cpp # Layer stack source file
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
+
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
@@ -65,6 +74,17 @@ else()
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
         ${IMGUI_HEADERS} # Headers for the ImGui library
     )
+
+    # Custom target to copy GLEW runtimes into the build directory
+    add_custom_target(
+        GLEW_COPY_RUNTIMES ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/build/vendors/glew-cmake/bin/${CMAKE_BUILD_TYPE}/
+        ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/
+        COMMENT "Copying glew runtimes into build directory"
+    )
+
+    add_dependencies(${TRIMANA_CORE_LIBRARY} GLEW_COPY_RUNTIMES) # Add the GLEW_COPY_RUNTIMES target as a dependency
 endif()
 
 # Set the public include directories for the trimana_core library
@@ -84,10 +104,9 @@ target_link_libraries(
     ${TRIMANA_CORE_LIBRARY} PUBLIC
     glfw # Link glfw library
     spdlog::spdlog_header_only # Link spdlog library
-    libglew_static # Link glew library
+    libglew_shared # Link glew library
     ImGui::ImGui # Link imgui library
 )
 
 # Create an alias for the trimana_core library
 add_library(TRIMANA::CORE ALIAS ${TRIMANA_CORE_LIBRARY})
-

@@ -19,4 +19,8 @@ set(
 
 add_executable(${TRIMANA_APP} ${TRIMANA_APP_SOURCES} ${TRIMANA_APP_HEADERS})
 target_include_directories(${TRIMANA_APP} PRIVATE ${TRIMANA_APP_SOURCES_DIR} ${TRIMANA_CORE_INCLUDE_DIR})
-target_link_libraries(${TRIMANA_APP} PRIVATE TRIMANA::CORE)
+target_link_libraries(
+    ${TRIMANA_APP} PRIVATE 
+    libglew_shared # Link glew library 
+    TRIMANA::CORE
+)
