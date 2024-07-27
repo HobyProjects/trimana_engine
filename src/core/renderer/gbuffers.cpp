@@ -1,4 +1,5 @@
 #include "gbuffers.hpp"
+
 #include "grenderer.hpp"
 #include "gl_buffers.hpp"
 
@@ -11,7 +12,7 @@ namespace trimana_core::renderer
         case renderer_api::none:
             return nullptr;
         case renderer_api::opengl:
-            return new opengl::gl_vertex_buffer(vertices, size, type);
+            return new opengl::gl_vertex_buffer(vertices, size, (type == draw_type::draw_dynamic) ? opengl::gl_draw_type::draw_dynamic : opengl::gl_draw_type::draw_static);
         default:
             return nullptr;
         }
@@ -24,7 +25,7 @@ namespace trimana_core::renderer
         case renderer_api::none:
             return nullptr;
         case renderer_api::opengl:
-            return new opengl::gl_index_buffer(indices, count, type);
+            return new opengl::gl_index_buffer(indices, count, (type == draw_type::draw_dynamic) ? opengl::gl_draw_type::draw_dynamic : opengl::gl_draw_type::draw_static);
         default:
             return nullptr;
         }

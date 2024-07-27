@@ -6,7 +6,7 @@ namespace trimana_core::renderer::opengl
     ///                              gl_vertex_buffer                             ///
     /////////////////////////////////////////////////////////////////////////////////
 
-    gl_vertex_buffer::gl_vertex_buffer(float *vertices, size_t size, draw_type type)
+    gl_vertex_buffer::gl_vertex_buffer(float *vertices, size_t size, gl_draw_type type)
     {
         glGenBuffers(1, &m_renderer_id);
         glBindBuffer(GL_ARRAY_BUFFER, m_renderer_id);
@@ -32,7 +32,7 @@ namespace trimana_core::renderer::opengl
     ///                              gl_index_buffer                              ///
     /////////////////////////////////////////////////////////////////////////////////
 
-    gl_index_buffer::gl_index_buffer(unsigned int *indices, size_t count, draw_type type)
+    gl_index_buffer::gl_index_buffer(unsigned int *indices, size_t count, gl_draw_type type)
     {
         m_count = count;
         glGenBuffers(1, &m_renderer_id);

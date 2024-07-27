@@ -9,6 +9,16 @@
 namespace trimana_core::renderer::opengl
 {
     /**
+     * @brief The shader_type enum class represents the types of shaders.
+     */
+    enum class shader_type
+    {
+        none = -1,                    /**< No shader type */
+        vertex = GL_VERTEX_SHADER,    /**< Vertex shader type */
+        fragment = GL_FRAGMENT_SHADER /**< Fragment shader type */
+    };
+
+    /**
      * @class gl_shader
      * @brief Represents an OpenGL shader.
      *

@@ -6,6 +6,10 @@ using namespace trimana_core::inputs;
 using namespace trimana_core::layers;
 using namespace trimana_core::renderer;
 
+// temporary
+#include "gl_buffers.hpp"
+using namespace trimana_core::renderer::opengl;
+
 namespace trimana_engine::app
 {
     application::application()
@@ -22,14 +26,28 @@ namespace trimana_engine::app
         glGenVertexArrays(1, &m_vertex_array);
         glBindVertexArray(m_vertex_array);
 
-        float vertices[3 * 3] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.0f, 0.5f, 0.0f};
+        float vertices[3 * 7] = {
+            -0.5f, -0.5f, 0.0f, 0.2f, 0.7f, 0.4f, 1.0f,
+            0.5f, -0.5f, 0.0f, 1.0f, 0.1f, 0.0f, 1.0f,
+            0.0f, 0.5f, 0.0f, 1.0f, 0.5f, 0.3f, 1.0f
+        };
 
         m_vertex_buffers.reset(create_vertex_buffers(vertices, sizeof(vertices), draw_type::draw_static));
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+        buffer_layout layout = {
+            {shader_data_type::_3f, "a_position", element_components::xyz},
+            {shader_data_type::_4f, "a_color", element_components::rgba}
+        };
+
+        m_vertex_buffers->set_layout(layout);
+
+        uint32_t index = 0;
+        for (auto &element : m_vertex_buffers->get_layout())
+        {
+            glEnableVertexAttribArray(index);
+            glVertexAttribPointer(index++, element.component_type, gl_data_type::gl_float, element.normalized, layout.get_stride(), (const void *)element.offset);
+        }
+
 
         unsigned int indices[3] = {0, 1, 2};
         m_index_buffers.reset(create_index_buffers(indices, 3, draw_type::draw_static));
@@ -90,7 +108,7 @@ namespace trimana_engine::app
     bool application::on_window_close(event &e)
     {
         glDeleteVertexArrays(1, &m_vertex_array);
-        
+
         m_window->get_attributes().is_active = false;
         return true;
     }
