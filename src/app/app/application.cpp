@@ -17,6 +17,8 @@ namespace trimana_engine::app
         m_layer_stack = std::make_shared<layer_stack>();
         push_layer(std::make_shared<imgui_layer>(m_window));
 
+        // Temporary
+
         glGenVertexArrays(1, &m_vertex_array);
         glBindVertexArray(m_vertex_array);
 
@@ -31,6 +33,7 @@ namespace trimana_engine::app
 
         unsigned int indices[3] = {0, 1, 2};
         m_index_buffers.reset(create_index_buffers(indices, 3, draw_type::draw_static));
+        m_shader.reset(create_shader("shaders/main_vertex.glsl", "shaders/main_fragment.glsl"));
     }
 
     void application::run()
@@ -40,9 +43,12 @@ namespace trimana_engine::app
             glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            // Temporary
+            m_shader->bind();
             glBindVertexArray(m_vertex_array);
             glDrawElements(GL_TRIANGLES, m_index_buffers->get_count(), GL_UNSIGNED_INT, nullptr);
             glBindVertexArray(0);
+            m_shader->unbind();
 
             for (std::shared_ptr<layer> layer : *m_layer_stack)
                 layer->on_update();

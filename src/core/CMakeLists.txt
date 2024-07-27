@@ -17,7 +17,6 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers # Layers source directory
     ${PROJECT_SOURCE_DIR}/src/core/inputs # Inputs source directory
     ${PROJECT_SOURCE_DIR}/src/core/renderer # Renderer source directory
-
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl # OpenGL source directory
 )
 
@@ -39,11 +38,13 @@ set(
 
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gcontext.hpp # GContext header file
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.hpp # GBuffer header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/gshader.hpp # GShader header file
     ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.hpp # GRenderer header file
 
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.hpp # OpenGL buffers header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.hpp # OpenGL shader header file
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -58,10 +59,12 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
 
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.cpp # GBuffer source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/gshader.cpp # GShader source file
     ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.cpp # GRenderer source file
     
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.cpp # OpenGL buffers source file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.cpp # OpenGL shader source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
@@ -115,6 +118,7 @@ target_link_libraries(
     spdlog::spdlog_header_only # Link spdlog library
     libglew_shared # Link glew library
     ImGui::ImGui # Link imgui library
+    glm::glm-header-only # Link glm library
 )
 
 # Create an alias for the trimana_core library

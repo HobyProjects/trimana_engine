@@ -4,9 +4,9 @@ add_subdirectory("glfw" EXCLUDE_FROM_ALL)
 # spdlog Configuration
 add_subdirectory("spdlog" EXCLUDE_FROM_ALL)
 
-# # glm lib Configuration
-# set(GLM_BUILD_TESTS OFF)
-# add_subdirectory("glm" EXCLUDE_FROM_ALL)
+# glm lib Configuration
+set(GLM_BUILD_TESTS OFF)
+add_subdirectory("glm" EXCLUDE_FROM_ALL)
 
 #glew lib Configuration
 if(NOT BUILD_SHARED_LIBS)
