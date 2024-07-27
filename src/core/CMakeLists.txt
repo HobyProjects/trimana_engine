@@ -39,6 +39,7 @@ set(
 
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gcontext.hpp # GContext header file
     ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.hpp # GBuffer header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.hpp # GRenderer header file
 
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
@@ -56,7 +57,11 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
 
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.cpp # GBuffer source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.cpp # GRenderer source file
+    
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.cpp # OpenGL buffers source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library

@@ -1,10 +1,20 @@
 #ifndef __gbuffers_h__
 #define __gbuffers_h__
 
+#include <GL/glew.h>
 #include "platform_detection.hpp"
 
 namespace trimana_core::renderer
 {
+    /**
+     * @brief Enumeration representing the draw type of a vertex buffer object.
+     */
+    enum class draw_type
+    {
+        draw_static = GL_STATIC_DRAW,  /**< Static draw type */
+        draw_dynamic = GL_DYNAMIC_DRAW /**< Dynamic draw type */
+    };
+
     /**
      * @brief The vertex_buffers class represents a base class for vertex buffer objects.
      *
@@ -14,7 +24,15 @@ namespace trimana_core::renderer
     class TRIMANA_API vertex_buffers
     {
     public:
+        /**
+         * @brief
+         *   Default constructor for the vertex_buffers class.
+         */
         vertex_buffers() = default;
+
+        /**
+         * @brief Default destructor for the vertex_buffers class.
+         */
         virtual ~vertex_buffers() = default;
 
         /**
@@ -41,18 +59,18 @@ namespace trimana_core::renderer
      * Subclasses of this class should implement the necessary functionality
      * for binding and unbinding the index buffer.
      */
-    class TRIMANA_API index_buffer
+    class TRIMANA_API index_buffers
     {
     public:
         /**
          * @brief Default constructor for the index_buffer class.
          */
-        index_buffer() = default;
+        index_buffers() = default;
 
         /**
          * @brief Default destructor for the index_buffer class.
          */
-        virtual ~index_buffer() = default;
+        virtual ~index_buffers() = default;
 
         /**
          * @brief Binds the index buffer for rendering.
@@ -68,11 +86,31 @@ namespace trimana_core::renderer
          * This function should be implemented by subclasses to unbind the index buffer.
          */
         virtual void unbind() const = 0;
+
+        /**
+         * @brief Gets the count of indices in the index buffer.
+         * @return The count of indices in the index buffer.
+         */
+        virtual size_t get_count() const = 0;
     };
 
-    TRIMANA_API vertex_buffers *create_vertex_buffers();
-    TRIMANA_API index_buffer *create_index_buffers();
+    /**
+     * @brief Creates a new instance of the vertex_buffers class.
+     * @param vertices The array of vertices.
+     * @param size The size of the vertices array.
+     * @param type The draw type of the vertex buffer object.
+     * @return A pointer to the created vertex_buffers object.
+     */
+    TRIMANA_API vertex_buffers *create_vertex_buffers(float *vertices, size_t size, draw_type type);
 
-}
+    /**
+     * @brief Creates a new instance of the index_buffer class.
+     * @param indices The array of indices.
+     * @param size The size of the indices array.
+     * @return A pointer to the created index_buffer object.
+     */
+    TRIMANA_API index_buffers *create_index_buffers(unsigned int *indices, size_t size, draw_type type);
+
+} // namespace trimana::core::renderer
 
 #endif // __gbuffers_h__
