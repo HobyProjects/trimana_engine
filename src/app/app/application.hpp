@@ -8,6 +8,7 @@
 #include <layers/layer_stack.hpp>
 #include <layers/imgui_layer.hpp>
 
+#include <renderer/gvertex_array.hpp>
 #include <renderer/gbuffers.hpp>
 #include <renderer/gshader.hpp>
 
@@ -125,10 +126,11 @@ namespace trimana_engine::app
         std::shared_ptr<trimana_core::layers::layer_stack> m_layer_stack;
 
         //TEMP
-        std::unique_ptr<trimana_core::renderer::shader> m_shader;
-        std::unique_ptr<trimana_core::renderer::vertex_buffers> m_vertex_buffers;
-        std::unique_ptr<trimana_core::renderer::index_buffers> m_index_buffers;
-        unsigned int m_vertex_array;
+        std::shared_ptr<trimana_core::renderer::shader> m_shader_triangle;
+        std::shared_ptr<trimana_core::renderer::vertex_array> m_vertex_array_triangle;
+
+        std::shared_ptr<trimana_core::renderer::shader> m_shader_square;
+        std::shared_ptr<trimana_core::renderer::vertex_array> m_vertex_array_square;
     };
 }
 #endif // __application_h__

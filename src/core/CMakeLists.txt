@@ -46,6 +46,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.hpp # OpenGL buffers header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.hpp # OpenGL shader header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_vertex_array.hpp # OpenGL vertex array header file
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -67,6 +68,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.cpp # OpenGL buffers source file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.cpp # OpenGL shader source file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_vertex_array.cpp # OpenGL vertex array source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
