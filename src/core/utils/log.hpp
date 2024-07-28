@@ -12,7 +12,7 @@
 
 #include "platform_detection.hpp"
 
-namespace trimana_core::loggers
+namespace core::loggers
 {
     /**
      * @brief A class managing the instantiation and retrieval of loggers for the
@@ -84,17 +84,17 @@ namespace trimana_core::loggers
 
 
 // Define macros for logging with the core logger.
-#define TRIMANA_CORE_TRACE(...) trimana_core::loggers::log::get_core_logger()->trace(__VA_ARGS__)
-#define TRIMANA_CORE_INFO(...) trimana_core::loggers::log::get_core_logger()->info(__VA_ARGS__)
-#define TRIMANA_CORE_WARN(...) trimana_core::loggers::log::get_core_logger()->warn(__VA_ARGS__)
-#define TRIMANA_CORE_ERROR(...) trimana_core::loggers::log::get_core_logger()->error(__VA_ARGS__)
-#define TRIMANA_CORE_CRITICAL(...) trimana_core::loggers::log::get_core_logger()->critical(__VA_ARGS__)
+#define TRIMANA_CORE_TRACE(...) core::loggers::log::get_core_logger()->trace(__VA_ARGS__)
+#define TRIMANA_CORE_INFO(...) core::loggers::log::get_core_logger()->info(__VA_ARGS__)
+#define TRIMANA_CORE_WARN(...) core::loggers::log::get_core_logger()->warn(__VA_ARGS__)
+#define TRIMANA_CORE_ERROR(...) core::loggers::log::get_core_logger()->error(__VA_ARGS__)
+#define TRIMANA_CORE_CRITICAL(...) core::loggers::log::get_core_logger()->critical(__VA_ARGS__)
 
 // Define macros for logging with the engine logger.
-#define TRIMANA_TRACE(...) trimana_core::loggers::log::get_engine_logger()->trace(__VA_ARGS__)
-#define TRIMANA_INFO(...) trimana_core::loggers::log::get_engine_logger()->info(__VA_ARGS__)
-#define TRIMANA_WARN(...) trimana_core::loggers::log::get_engine_logger()->warn(__VA_ARGS__)
-#define TRIMANA_ERROR(...) trimana_core::loggers::log::get_engine_logger()->error(__VA_ARGS__)
-#define TRIMANA_CRITICAL(...) trimana_core::loggers::log::get_engine_logger()->critical(__VA_ARGS__)
+#define TRIMANA_TRACE(...) core::loggers::log::get_engine_logger()->trace(__VA_ARGS__)
+#define TRIMANA_INFO(...) core::loggers::log::get_engine_logger()->info(__VA_ARGS__)
+#define TRIMANA_WARN(...) core::loggers::log::get_engine_logger()->warn(__VA_ARGS__)
+#define TRIMANA_ERROR(...) core::loggers::log::get_engine_logger()->error(__VA_ARGS__)
+#define TRIMANA_CRITICAL(...) core::loggers::log::get_engine_logger()->critical(__VA_ARGS__)
 
 #endif // __log_h__

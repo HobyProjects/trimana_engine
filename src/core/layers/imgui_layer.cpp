@@ -253,10 +253,10 @@ static ImGuiKey glfw_to_imgui_keymap(int key)
     }
 }
 
-using namespace trimana_core::windows;
-using namespace trimana_core::events;
+using namespace core::windows;
+using namespace core::events;
 
-namespace trimana_core::layers
+namespace core::layers
 {
     imgui_layer::imgui_layer(std::shared_ptr<window> window, ui_color_scheme color_scheme) : m_window(window), m_color_scheme(color_scheme), layer("imgui_layer") {}
 
@@ -284,7 +284,7 @@ namespace trimana_core::layers
 
         auto window_ptr = m_window.lock();
         ImGui_ImplGlfw_InitForOpenGL(window_ptr->get_native_window(), false);
-        ImGui_ImplOpenGL3_Init(window_ptr->get_context()->get_gl_info()->glsl_version().c_str());
+        ImGui_ImplOpenGL3_Init(window_ptr->get_context()->get_info()->glsl_version().c_str());
 
         if (m_color_scheme == ui_color_scheme::dark)
             use_color_scheme_dark();
@@ -332,7 +332,7 @@ namespace trimana_core::layers
         }
     }
 
-    void imgui_layer::on_event(trimana_core::events::event &e)
+    void imgui_layer::on_event(core::events::event &e)
     {
         event_handler handler(e);
         handler.dispatch<window_frame_resize_event>(EVENTS_CALLBACK(imgui_layer::on_window_frame_resize));

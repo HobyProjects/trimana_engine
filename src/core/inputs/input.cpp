@@ -1,10 +1,10 @@
 #include "input.hpp"
 
-namespace trimana_core::inputs
+namespace core::inputs
 {
-    std::weak_ptr<trimana_core::windows::window> input::m_window;
+    std::weak_ptr<core::windows::window> input::m_window;
 
-    void input::target_window(const std::shared_ptr<trimana_core::windows::window> window)
+    void input::target_window(const std::shared_ptr<core::windows::window> window)
     {
         m_window = window;
     }

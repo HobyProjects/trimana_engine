@@ -14,7 +14,7 @@
 #ifndef __window_h__
 #include "window.hpp"
 #endif
-namespace trimana_core::events
+namespace core::events
 {
     /**
      * @class events_receiver
@@ -60,7 +60,7 @@ namespace trimana_core::events
          * @param window The window object for which the events are being handled.
          * @param callback The callback function to be called when events occur.
          */
-        static void set_eventts_callback(std::shared_ptr<trimana_core::windows::window> window, const events_callback_func &callback);
+        static void set_eventts_callback(std::shared_ptr<core::windows::window> window, const events_callback_func &callback);
 
     private:
         // The callback function that will be called when events occur.
@@ -69,7 +69,7 @@ namespace trimana_core::events
         // The weak pointer to the window object for which the events are being
         // handled. This is used to prevent circular references and to allow the
         // window object to be destroyed if it is no longer needed.
-        static std::weak_ptr<trimana_core::windows::window> m_window;
+        static std::weak_ptr<core::windows::window> m_window;
     };
 }
 

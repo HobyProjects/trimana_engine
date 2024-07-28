@@ -36,17 +36,9 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.hpp # ImGui layer header file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
 
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/context.hpp # GContext header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/buffers.hpp # GBuffer header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/shader.hpp # GShader header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.hpp # GRenderer header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/vertex_array.hpp # GVertexArray header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.hpp # Renderer header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/opengl.hpp # OpenGL header file
 
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.hpp # OpenGL buffers header file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.hpp # OpenGL shader header file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_vertex_array.hpp # OpenGL vertex array header file
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -60,15 +52,8 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
 
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/buffers.cpp # GBuffer source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/shader.cpp # GShader source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.cpp # GRenderer source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/vertex_array.cpp # GVertexArray source file
-    
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.cpp # OpenGL buffers source file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_shader.cpp # OpenGL shader source file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_vertex_array.cpp # OpenGL vertex array source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.cpp # Renderer source file    
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/opengl.cpp # OpenGL error source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library

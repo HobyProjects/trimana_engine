@@ -1,6 +1,6 @@
 #include "window.hpp"
 
-namespace trimana_core::windows
+namespace core::windows
 {
     /**
      * @brief Creates a window with a title.
@@ -103,7 +103,7 @@ namespace trimana_core::windows
             glfwGetFramebufferSize(m_window, &m_window_framebuffer.width, &m_window_framebuffer.height);
 
             // Make the window the current context
-            m_context = std::make_shared<renderer::opengl::gl_context>(m_window);
+            m_context = std::make_shared<core::gapi::opengl::gl_context>(m_window);
             m_context->init();
 
             // Set the window's attributes

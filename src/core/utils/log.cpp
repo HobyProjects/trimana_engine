@@ -2,7 +2,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
-namespace trimana_core::loggers
+namespace core::loggers
 {
     /**
      * @brief Shared loggers for core and engine

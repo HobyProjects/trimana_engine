@@ -5,7 +5,7 @@
 #include "events.hpp"
 #endif
 
-namespace trimana_core::events
+namespace core::events
 {
     /**
      * @class keyboard_keypress_event

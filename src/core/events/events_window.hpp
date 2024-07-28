@@ -3,7 +3,7 @@
 
 #include "events.hpp"
 
-namespace trimana_core::events
+namespace core::events
 {
     /**
      * @class window_resize_event
@@ -55,7 +55,7 @@ namespace trimana_core::events
          *
          * This function logs the event to the console. It takes a format string
          * and a variable number of arguments, and logs the event using the
-         * `trimana_core::log` function.
+         * `core::log` function.
          *
          * @param fmt The format string to use when logging the event.
          */
@@ -146,7 +146,7 @@ namespace trimana_core::events
          *
          * This function logs the event to the console. It takes a format string
          * and a variable number of arguments, and logs the event using the
-         * `trimana_core::log` function.
+         * `core::log` function.
          *
          * @param fmt The format string to use when logging the event.
          */

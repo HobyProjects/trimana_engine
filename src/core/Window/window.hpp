@@ -5,10 +5,10 @@
 #include "assert.hpp"
 
 #ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
-#include "gl_context.hpp"
+#include "opengl.hpp"
 #endif
 
-namespace trimana_core::windows
+namespace core::windows
 {
     /**
      * @brief
@@ -274,7 +274,7 @@ namespace trimana_core::windows
          *
          * @return The OpenGL context associated with the window.
          */
-        std::shared_ptr<renderer::opengl::gl_context> get_context() const { return m_context; }
+        std::shared_ptr<core::gapi::opengl::gl_context> get_context() const { return m_context; }
 
 #endif // TRIMANA_PRIMARY_RENDERER_OPENGL
 
@@ -352,7 +352,7 @@ namespace trimana_core::windows
          * This member variable holds the OpenGL context associated with the window.
          * The OpenGL context is used to render graphics to the window.
          */
-        std::shared_ptr<renderer::opengl::gl_context> m_context{nullptr};
+        std::shared_ptr<core::gapi::opengl::gl_context> m_context{nullptr};
 
 #endif
 

@@ -26,7 +26,7 @@
  */
 #define EVENTS_CALLBACK(func) std::bind(&func, this, std::placeholders::_1)
 
-namespace trimana_core::events
+namespace core::events
 {
     // This enum defines the different categories of events that can occur.
     // The categories are:

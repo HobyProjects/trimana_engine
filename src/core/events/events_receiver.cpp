@@ -1,6 +1,6 @@
 #include "events_receiver.hpp"
 
-namespace trimana_core::events
+namespace core::events
 {
     /**
      * The static callback function for all events.
@@ -10,7 +10,7 @@ namespace trimana_core::events
     /**
      * The weak pointer to the window.
      */
-    std::weak_ptr<trimana_core::windows::window> events_receiver::m_window;
+    std::weak_ptr<core::windows::window> events_receiver::m_window;
 
 
     /**

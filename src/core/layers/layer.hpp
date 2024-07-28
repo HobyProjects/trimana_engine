@@ -6,7 +6,7 @@
 #include "platform_detection.hpp"
 #include "events.hpp"
 
-namespace trimana_core::layers
+namespace core::layers
 {
     /**
      * @brief Base class for all layers in Trimana engine.
@@ -84,7 +84,7 @@ namespace trimana_core::layers
          * This method is called by the engine when an event is triggered. The layer can use
          * this method to handle the event and perform any necessary actions in response to the event.
          */
-        virtual void on_event(trimana_core::events::event &e) {}
+        virtual void on_event(core::events::event &e) {}
 
         /**
          * @brief Get the name of the layer.

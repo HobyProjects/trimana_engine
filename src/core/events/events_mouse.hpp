@@ -3,7 +3,7 @@
 
 #include "events.hpp"
 
-namespace trimana_core::events
+namespace core::events
 {
     /**
      * @class mouse_button_press_event

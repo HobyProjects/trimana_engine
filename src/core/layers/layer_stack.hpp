@@ -8,7 +8,7 @@
 #include "layer.hpp"
 #endif
 
-namespace trimana_core::layers
+namespace core::layers
 {
     /**
      * @brief A stack of layers to be rendered in the Trimana engine.

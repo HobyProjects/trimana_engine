@@ -17,6 +17,7 @@
     #endif
     // Define TRIMANA_ASSERTS_ENABLED for debug mode
     #define TRIMANA_ASSERTS_ENABLED
+    #define TRIMANA_STRINGIFY_MACRO(x) #x
 #else
     #if defined(TRIMANA_PLATFORM_WINDOWS)
         // Define TRIMANA_DEBUGBREAK macro for Windows platform in release mode

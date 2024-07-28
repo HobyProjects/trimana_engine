@@ -1,6 +1,6 @@
 #include "layer_stack.hpp"
 
-namespace trimana_core::layers
+namespace core::layers
 {
     /**
      * @brief Adds a new layer to the stack.
