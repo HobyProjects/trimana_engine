@@ -34,7 +34,6 @@ namespace trimana_core::renderer
          */
         ~graphic_renderer() = default;
 
-    public:
         /**
          * @brief Constructs a graphic_renderer object.
          */
