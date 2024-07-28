@@ -1,5 +1,5 @@
 #include "gl_shader.hpp"
-#include "grenderer.hpp"
+#include "renderer.hpp"
 
 namespace trimana_core::renderer
 {

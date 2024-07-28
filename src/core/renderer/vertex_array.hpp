@@ -2,7 +2,7 @@
 #define __gvertex_array_h__
 
 #include <memory>
-#include "gbuffers.hpp"
+#include "buffers.hpp"
 
 namespace trimana_core::renderer
 {

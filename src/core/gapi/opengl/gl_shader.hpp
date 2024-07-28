@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 #include "log.hpp"
-#include "gshader.hpp"
+#include "shader.hpp"
 
 namespace trimana_core::renderer::opengl
 {

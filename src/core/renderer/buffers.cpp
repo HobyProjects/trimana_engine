@@ -1,6 +1,6 @@
-#include "gbuffers.hpp"
+#include "buffers.hpp"
 
-#include "grenderer.hpp"
+#include "renderer.hpp"
 #include "gl_buffers.hpp"
 
 namespace trimana_core::renderer

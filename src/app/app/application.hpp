@@ -8,9 +8,9 @@
 #include <layers/layer_stack.hpp>
 #include <layers/imgui_layer.hpp>
 
-#include <renderer/gvertex_array.hpp>
-#include <renderer/gbuffers.hpp>
-#include <renderer/gshader.hpp>
+#include <renderer/vertex_array.hpp>
+#include <renderer/buffers.hpp>
+#include <renderer/shader.hpp>
 
 namespace trimana_engine::app
 {

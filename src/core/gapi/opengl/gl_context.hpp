@@ -48,7 +48,7 @@
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
-#include "gcontext.hpp"
+#include "context.hpp"
 #include "gl_info.hpp"
 
 namespace trimana_core::renderer::opengl

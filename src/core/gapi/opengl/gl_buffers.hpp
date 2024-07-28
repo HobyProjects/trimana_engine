@@ -1,7 +1,7 @@
 #ifndef __gl_buffers_h__
 #define __gl_buffers_h__
 
-#include "gbuffers.hpp"
+#include "buffers.hpp"
 namespace trimana_core::renderer::opengl
 {
     /**

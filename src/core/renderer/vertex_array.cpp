@@ -1,5 +1,5 @@
-#include "gvertex_array.hpp"
-#include "grenderer.hpp"
+#include "vertex_array.hpp"
+#include "renderer.hpp"
 
 #include "gl_vertex_array.hpp"
 

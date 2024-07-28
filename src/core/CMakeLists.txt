@@ -36,11 +36,11 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.hpp # ImGui layer header file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
 
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gcontext.hpp # GContext header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.hpp # GBuffer header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gshader.hpp # GShader header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.hpp # GRenderer header file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gvertex_array.hpp # GVertexArray header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/context.hpp # GContext header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/buffers.hpp # GBuffer header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/shader.hpp # GShader header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.hpp # GRenderer header file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/vertex_array.hpp # GVertexArray header file
 
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.hpp # OpenGL context header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_info.hpp # OpenGL info header file
@@ -60,10 +60,10 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
 
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gbuffers.cpp # GBuffer source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gshader.cpp # GShader source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/grenderer.cpp # GRenderer source file
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/gvertex_array.cpp # GVertexArray source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/buffers.cpp # GBuffer source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/shader.cpp # GShader source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.cpp # GRenderer source file
+    ${PROJECT_SOURCE_DIR}/src/core/renderer/vertex_array.cpp # GVertexArray source file
     
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_context.cpp # OpenGL context source file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/gl_buffers.cpp # OpenGL buffers source file

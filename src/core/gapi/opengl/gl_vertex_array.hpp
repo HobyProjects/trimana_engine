@@ -1,7 +1,7 @@
 #ifndef __gl_vertex_array_h__
 #define __gl_vertex_array_h__
 
-#include "gvertex_array.hpp"
+#include "vertex_array.hpp"
 
 namespace trimana_core::renderer::opengl
 {
