@@ -1,4 +1,5 @@
 #include "opengl.hpp"
+#include "renderer.hpp"
 
 using namespace core::gapi::opengl;
 
@@ -46,19 +47,42 @@ namespace core::renderer
 
     renderer_api::api renderer_api::s_api = renderer_api::api::opengl;
     std::shared_ptr<renderer_api> render_command::m_renderer_api = std::make_shared<gl_api_base>();
+    glm::mat4 renderer::m_view_projection_matrix = glm::mat4(1.0f);
 
-    void renderer::begin_scene()
+    void renderer::begin_scene( const glm::mat4& camera_projection)
     {
+        m_view_projection_matrix = camera_projection;
     }
 
     void renderer::end_scene()
     {
     }
 
-    void renderer::submit(const std::shared_ptr<vertex_array> &vertex_array)
+    void renderer::submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array)
     {
+        shader_ptr->bind();
+        shader_ptr->set_uniform_mat4f("u_projection_view", m_view_projection_matrix);
+
         vertex_array->bind();
         render_command::api_base_draw_indexed(vertex_array);
+    }
+
+    orthographic_camera::orthographic_camera(float left, float right, float bottom, float top)
+    {
+        m_projection = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+        m_view_projection = m_projection * m_view;
+    }
+
+    void orthographic_camera::recalculate_view_matrix()
+    {
+        glm::mat4 transform = glm::translate(
+            glm::mat4(1.0f), m_position) * 
+            glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation.z), glm::vec3(0, 0, 1)) *
+            glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation.y), glm::vec3(0, 1, 0)) *
+            glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation.x), glm::vec3(1, 0, 0));
+
+        m_view = glm::inverse(transform);
+        m_view_projection = m_projection * m_view;
     }
 
 }

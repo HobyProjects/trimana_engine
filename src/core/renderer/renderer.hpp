@@ -578,6 +578,34 @@ namespace core::renderer
             static std::shared_ptr<renderer_api> m_renderer_api; /**< The current renderer API. */
     };
 
+    class TRIMANA_API orthographic_camera
+    {
+        public:
+            orthographic_camera(float left, float right, float bottom, float top);
+            ~orthographic_camera() = default;
+
+            void set_position(const glm::vec3 &position) { m_position = position; recalculate_view_matrix(); }
+            void set_rotation(const glm::vec3  &rotation){ m_rotation = rotation; recalculate_view_matrix();}
+
+            const glm::mat4 &get_projection() const { return m_projection; }
+            const glm::mat4 &get_view() const { return m_view; }
+            const glm::mat4 &get_view_projection() const { return m_view_projection; }
+
+            const glm::vec3 &get_position() const { return m_position; }
+            const glm::vec3  &get_rotation() const { return m_rotation; }
+
+        private:
+            void recalculate_view_matrix();
+
+        private:
+            glm::mat4 m_projection{1.0f};
+            glm::mat4 m_view{1.0f};
+            glm::mat4 m_view_projection{1.0f};
+
+            glm::vec3 m_position{0.0f, 0.0f, 0.0f};
+            glm::vec3  m_rotation{0.0f};
+    };
+
     /**
      * @brief The renderer class provides an interface for rendering graphics.
      */
@@ -603,7 +631,7 @@ namespace core::renderer
              *
              * @param vertex_array A shared pointer to the vertex array to be submitted.
              */
-            static void submit(const std::shared_ptr<vertex_array> &vertex_array);
+            static void submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array);
 
             
             /**
@@ -611,7 +639,7 @@ namespace core::renderer
              * This function prepares the renderer to start rendering a new scene.
              * It should be called before any rendering commands are issued.
              */
-            static void begin_scene();
+            static void begin_scene(const glm::mat4& camera_projection);
 
             /**
              * Ends the current rendering scene.
@@ -625,6 +653,9 @@ namespace core::renderer
              * @return The current renderer API.
              */
             inline static renderer_api::api get_api() { return renderer_api::get_api(); }
+
+        private:
+            static glm::mat4 m_view_projection_matrix; /**< The view projection matrix. */
     };
 
 }
