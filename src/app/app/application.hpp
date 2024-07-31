@@ -140,6 +140,9 @@ namespace trimana_engine::app {
 
       float m_last_frame_time = 0.0f;
 
+      glm::vec3 m_model_position{0.0f, 0.0f, 0.0f};
+      float m_model_speed{0.5f};
+
 
 };
 

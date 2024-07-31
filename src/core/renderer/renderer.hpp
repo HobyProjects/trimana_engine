@@ -631,7 +631,7 @@ namespace core::renderer
              *
              * @param vertex_array A shared pointer to the vertex array to be submitted.
              */
-            static void submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array);
+            static void submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array, const glm::mat4& model_matrix = glm::mat4(1.0f));
 
             
             /**
