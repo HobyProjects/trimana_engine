@@ -35,6 +35,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.hpp # Layer stack header file
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.hpp # ImGui layer header file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
+    ${PROJECT_SOURCE_DIR}/src/core/utils/time_steps.hpp # Time steps header file
 
     ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.hpp # Renderer header file
     ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/opengl.hpp # OpenGL header file

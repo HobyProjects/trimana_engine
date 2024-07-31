@@ -6,6 +6,7 @@ using namespace core::inputs;
 using namespace core::layers;
 using namespace core::renderer;
 using namespace core::gapi::opengl;
+using namespace core::timers;
 
 namespace trimana_engine::app {
 
@@ -102,19 +103,25 @@ namespace trimana_engine::app {
     {
       while (m_window->get_attributes().is_active) 
       {
+        float current_time = static_cast<float>(glfwGetTime());
+        time_steps delta_time = current_time - m_last_frame_time;
+        m_last_frame_time = current_time;
+        TRIMANA_INFO("Delta time: {0}s ({1}ms)", delta_time.get_seconds(), delta_time.get_milliseconds());
+        
+
         if(input::is_key_pressed(GLFW_KEY_W))
-          m_camera_position.y += m_camera_speed;
+          m_camera_position.y += m_camera_speed * delta_time;
         if(input::is_key_pressed(GLFW_KEY_S))
-          m_camera_position.y -= m_camera_speed;
+          m_camera_position.y -= m_camera_speed * delta_time;
         if(input::is_key_pressed(GLFW_KEY_A))
-          m_camera_position.x -= m_camera_speed;
+          m_camera_position.x -= m_camera_speed * delta_time;
         if(input::is_key_pressed(GLFW_KEY_D))
-          m_camera_position.x += m_camera_speed;
+          m_camera_position.x += m_camera_speed * delta_time;
 
         if(input::is_key_pressed(GLFW_KEY_Q))
-          m_camera_rotation += m_camera_rotation_speed;
+          m_camera_rotation += m_camera_rotation_speed * delta_time;
         if(input::is_key_pressed(GLFW_KEY_E))
-          m_camera_rotation -= m_camera_rotation_speed;
+          m_camera_rotation -= m_camera_rotation_speed * delta_time;
 
         render_command::set_clear_color({0.1f, 0.1f, 0.1f, 1.0f});
         render_command::clear();
@@ -128,7 +135,7 @@ namespace trimana_engine::app {
         renderer::end_scene();
 
         for (std::shared_ptr<layer> layer : *m_layer_stack) 
-          layer->on_update();
+          layer->on_update(delta_time);
 
         m_window->swap_buffers();
         events_receiver::poll_events();
@@ -147,7 +154,7 @@ namespace trimana_engine::app {
       }
     
       #ifdef EVENTS_ALLOW_TO_SHOW
-        e.show_event_details();
+        //e.show_event_details();
       #endif
     }
 

@@ -299,13 +299,10 @@ namespace core::layers
         ImGui::DestroyContext();
     }
 
-    void imgui_layer::on_update()
+    void imgui_layer::on_update(core::timers::time_steps delta_time)
     {
-        static float static_time = 0.0f;
         ImGuiIO &io = ImGui::GetIO();
-        float time = (float)glfwGetTime();
-        io.DeltaTime = static_time > 0.0 ? (time - static_time) : (1.0f / 60.0f);
-        static_time = time;
+        io.DeltaTime = delta_time;
 
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();

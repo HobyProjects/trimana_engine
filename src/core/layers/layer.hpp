@@ -5,6 +5,7 @@
 
 #include "platform_detection.hpp"
 #include "events.hpp"
+#include "time_steps.hpp"
 
 namespace core::layers
 {
@@ -76,7 +77,7 @@ namespace core::layers
          * The layer can use this method to update its internal state based on any external input
          * or events.
          */
-        virtual void on_update() {}
+        virtual void on_update(core::timers::time_steps delta_time) {}
 
         /**
          * @brief Called when an event is triggered.

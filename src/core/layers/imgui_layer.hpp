@@ -11,6 +11,7 @@
 #include "events_window.hpp"
 #include "events_keyboard.hpp"
 #include "events_mouse.hpp"
+#include "time_steps.hpp"
 
 namespace core::layers
 {
@@ -59,7 +60,7 @@ namespace core::layers
         /**
          * @brief Called every frame to update the layer.
          */
-        virtual void on_update() override;
+        virtual void on_update(core::timers::time_steps delta_time) override;
 
         /**
          * @brief Called when an event occurs.

@@ -8,6 +8,7 @@
 #include <layers/layer_stack.hpp>
 #include <window/window.hpp>
 
+#include <utils/time_steps.hpp>
 #include <renderer/renderer.hpp>
 
 namespace trimana_engine::app {
@@ -131,11 +132,15 @@ namespace trimana_engine::app {
       std::shared_ptr<core::renderer::vertex_array> m_vertex_array_triangle;
       std::shared_ptr<core::renderer::vertex_array> m_vertex_array_square;
 
-      core::renderer::orthographic_camera m_camera{-2.0f, 2.0f, -2.0f, 2.0f};
+      core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
       glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};
-      float m_camera_speed{0.1f};
+      float m_camera_speed{1.0f};
       float m_camera_rotation{0.0f};
-      float m_camera_rotation_speed{0.5f};
+      float m_camera_rotation_speed{30.0f};
+
+      float m_last_frame_time = 0.0f;
+
+
 };
 
 }  // namespace trimana_engine::app
