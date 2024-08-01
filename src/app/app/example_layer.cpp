@@ -104,17 +104,6 @@ namespace trimana_engine::app
 
         ////////////////////////////////////////////////////////////////////
 
-        if(input::is_key_pressed(GLFW_KEY_UP))
-            m_model_position.y += m_model_speed * ts;
-        if(input::is_key_pressed(GLFW_KEY_DOWN))
-            m_model_position.y -= m_model_speed * ts;
-        if(input::is_key_pressed(GLFW_KEY_LEFT))
-            m_model_position.x -= m_model_speed * ts;
-        if(input::is_key_pressed(GLFW_KEY_RIGHT))
-            m_model_position.x += m_model_speed * ts;
-
-        ///////////////////////////////////////////////////////////////////
-
         render_command::set_clear_color({0.1f, 0.1f, 0.1f, 1.0f});
         render_command::clear();
 
@@ -124,21 +113,12 @@ namespace trimana_engine::app
         renderer::begin_scene(m_camera.get_view_projection());
         glm::mat4 scaler = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 
-        glm::vec4 red_color(0.8f, 0.2f, 0.3f, 1.0f);
-        glm::vec4 blue_color(0.2f, 0.3f, 0.8f, 1.0f);
-
         for(int x = 0; x < 20; x++)
         {
             for(int y = 0; y < 20; y++)
             {
                 glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
                 glm::mat4 treansform = glm::translate(glm::mat4(1.0f), pos) * scaler;
-                
-                // if(x % 2 == 0)
-                //     m_shader->set_uniform_4f("u_color", red_color);
-                // else
-                //     m_shader->set_uniform_4f("u_color", blue_color);
-
                 renderer::submit(m_shader, m_vertex_array_square, treansform);
             }
         }
@@ -150,9 +130,9 @@ namespace trimana_engine::app
 
     void example_layer::on_ui_updates()
     {
-        // ImGui::Begin("Settings");
-        // ImGui::ColorEdit4("Square Color", glm::value_ptr(m_color));
-        // ImGui::End();
+        ImGui::Begin("Settings");
+        ImGui::ColorEdit4("Square Color", glm::value_ptr(m_color));
+        ImGui::End();
     }
 
     void example_layer::on_event(core::events::event & e)

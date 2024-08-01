@@ -19,6 +19,13 @@ set(
     ${PROJECT_SOURCE_DIR}/src/app/entrypoint/trimana.cpp
 )
 
+# If BUILD_SHARED_LIBS is not set, create a static library
+if(NOT BUILD_SHARED_LIBS)
+    add_compile_definitions(TRIMANA_BUILD_STATIC) # Define the TRIMANA_BUILD_STATIC macro
+else()
+    add_compile_definitions(TRIMANA_BUILD_SHARED) # Define the TRIMANA_BUILD_SHARED macro
+endif()
+
 add_executable(${TRIMANA_APP} ${TRIMANA_APP_SOURCES} ${TRIMANA_APP_HEADERS})
 
 add_custom_target(
@@ -33,6 +40,5 @@ add_dependencies(${TRIMANA_APP} TRIMANA_RESOURCES)
 target_include_directories(${TRIMANA_APP} PRIVATE ${TRIMANA_APP_SOURCES_DIR} ${TRIMANA_CORE_INCLUDE_DIR})
 target_link_libraries(
     ${TRIMANA_APP} PRIVATE 
-    libglew_shared # Link glew library 
     TRIMANA::CORE # Link trimana core library
 )

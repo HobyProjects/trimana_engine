@@ -5,13 +5,17 @@
     // Define platform as Windows
     #define TRIMANA_PLATFORM_WINDOWS
 
-    #ifdef TRIMANA_BUILD_SHARED
-        // Export symbols when building shared library
-        #define TRIMANA_API __declspec(dllexport)
-    #else
-        // Import symbols when building static library
-        #define TRIMANA_API __declspec(dllimport)
-    #endif
+    #if defined(TRIMANA_BUILD_STATIC)
+        #define TRIMANA_API /* no __declspec(import/export) */        
+    #elif defined(TRIMANA_BUILD_SHARED)
+        #ifdef TRIMANA_BUILD_SHARED
+            // Export symbols when building shared library
+            #define TRIMANA_API __declspec(dllexport)
+        #else
+            // Import symbols when building static library
+            #define TRIMANA_API __declspec(dllimport)
+        #endif
+    #endif  
 
     //NOTE: This is a temporary solution for OpenGL renderer. Until we move on to DirectX
     #define TRIMANA_PRIMARY_RENDERER_OPENGL

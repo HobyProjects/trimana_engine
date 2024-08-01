@@ -17,9 +17,7 @@ namespace trimana_engine::app {
     events_receiver::set_eventts_callback(m_window, EVENTS_CALLBACK(application::on_events));
     input::target_window(m_window);
 
-    m_layer_stack = std::make_shared<layer_stack>();
     m_imgui_layer = std::make_shared<imgui_layer>(m_window);
-
     push_overlay(m_imgui_layer);
     push_overlay(std::make_shared<example_layer>());
   }
@@ -33,14 +31,13 @@ namespace trimana_engine::app {
       float current_time = static_cast<float>(glfwGetTime());
       time_steps delta_time = current_time - m_last_frame_time;
       m_last_frame_time = current_time;
-      TRIMANA_INFO("Delta time: {0}s ({1}ms)", delta_time.get_seconds(), delta_time.get_milliseconds());
   
-      for (std::shared_ptr<layer> layer : *m_layer_stack) 
+      for (std::shared_ptr<layer> layer : m_layer_stack) 
         layer->on_update(delta_time);
 
       m_imgui_layer->begin();
       {
-        for (std::shared_ptr<layer> layer : *m_layer_stack) 
+        for (std::shared_ptr<layer> layer : m_layer_stack) 
           layer->on_ui_updates();
       }
       m_imgui_layer->end();
@@ -57,7 +54,7 @@ namespace trimana_engine::app {
     event_handler handler(e);
     handler.dispatch<window_close_event>(EVENTS_CALLBACK(application::on_window_close));
 
-    for (std::vector<std::shared_ptr<layer>>::reverse_iterator it = m_layer_stack->rbegin(); it != m_layer_stack->rend(); ++it) 
+    for (std::vector<std::shared_ptr<layer>>::reverse_iterator it = m_layer_stack.rbegin(); it != m_layer_stack.rend(); ++it) 
     {
       if (e.handled) break;
         (*it)->on_event(e);
@@ -70,13 +67,13 @@ namespace trimana_engine::app {
 
   void application::push_layer(std::shared_ptr<layer> layer) 
   {
-    m_layer_stack->push_layer(layer);
+    m_layer_stack.push_layer(layer);
     layer->on_attach();
   }
 
   void application::push_overlay(std::shared_ptr<layer> overlay) 
   {
-    m_layer_stack->push_overlay(overlay);
+    m_layer_stack.push_overlay(overlay);
     overlay->on_attach();
   }
 

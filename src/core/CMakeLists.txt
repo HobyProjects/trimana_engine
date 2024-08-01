@@ -59,6 +59,7 @@ set(
 
 # If BUILD_SHARED_LIBS is not set, create a static library
 if(NOT BUILD_SHARED_LIBS)
+    add_compile_definitions(TRIMANA_BUILD_STATIC) # Define the TRIMANA_BUILD_STATIC macro
     add_library(
         ${TRIMANA_CORE_LIBRARY} STATIC # Create a static library named trimana_core
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
@@ -101,15 +102,25 @@ target_include_directories(
     ${IMGUI_BACKENDS_DIR}
 )
 
-# Set the public link libraries for the trimana_core library
-target_link_libraries(
-    ${TRIMANA_CORE_LIBRARY} PUBLIC
-    glfw # Link glfw library
-    spdlog::spdlog_header_only # Link spdlog library
-    libglew_shared # Link glew library
-    ImGui::ImGui # Link imgui library
-    glm::glm-header-only # Link glm library
-)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(
+        ${TRIMANA_CORE_LIBRARY} PUBLIC
+        glfw # Link glfw library
+        spdlog::spdlog # Link spdlog library
+        libglew_static # Link glew library
+        ImGui::ImGui # Link imgui library
+        glm::glm # Link glm library
+    )   
+else()
+    target_link_libraries(
+        ${TRIMANA_CORE_LIBRARY} PUBLIC
+        glfw # Link glfw library
+        spdlog::spdlog # Link spdlog library
+        libglew_shared # Link glew library
+        ImGui::ImGui # Link imgui library
+        glm::glm # Link glm library
+    )
+endif()
 
 # Create an alias for the trimana_core library
 add_library(TRIMANA::CORE ALIAS ${TRIMANA_CORE_LIBRARY})

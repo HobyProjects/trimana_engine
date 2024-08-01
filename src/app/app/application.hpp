@@ -126,7 +126,7 @@ namespace trimana_engine::app {
        * In this case, the `std::shared_ptr` is used to manage the lifetime of an
        * object of type `core::layers::layer_stack`.
        */
-      std::shared_ptr<core::layers::layer_stack> m_layer_stack{nullptr};
+      core::layers::layer_stack m_layer_stack;
 
       /**
        * A shared pointer to the ImGui layer object.
