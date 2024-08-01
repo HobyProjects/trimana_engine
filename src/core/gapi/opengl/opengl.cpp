@@ -150,7 +150,7 @@ namespace core::gapi::opengl
         gl_call(glBindVertexArray(0));
     }
 
-    void gl_vertex_array::emplace_vertex_buffer(const std::shared_ptr<core::renderer::vertex_buffers>& vertex_buffer) 
+    void gl_vertex_array::emplace_vertex_buffer(const sptr<core::renderer::vertex_buffers>& vertex_buffer) 
     {
         vertex_buffer->bind();
 
@@ -169,7 +169,7 @@ namespace core::gapi::opengl
         m_vertex_buffers.emplace_back(vertex_buffer);
     }
 
-    void gl_vertex_array::set_index_buffer(const std::shared_ptr<core::renderer::index_buffers>& index_buffer) 
+    void gl_vertex_array::set_index_buffer(const sptr<core::renderer::index_buffers>& index_buffer) 
     {
         index_buffer->bind();
         m_index_buffer = index_buffer;
@@ -428,7 +428,7 @@ namespace core::gapi::opengl
         gl_call(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     }
 
-    void gl_api_base::draw_indexed(const std::shared_ptr<core::renderer::vertex_array>& vertex_array) 
+    void gl_api_base::draw_indexed(const sptr<core::renderer::vertex_array>& vertex_array) 
     {
         auto& index_buffer = vertex_array->get_index_buffer();
         gl_call(glDrawElements(GL_TRIANGLES, index_buffer->get_count(), GL_UNSIGNED_INT, nullptr));

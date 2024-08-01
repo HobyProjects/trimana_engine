@@ -361,28 +361,28 @@ namespace core::renderer
              *
              * @param vertex_buffer The vertex buffer to be added.
              */
-            virtual void emplace_vertex_buffer(const std::shared_ptr<vertex_buffers> &vertex_buffer) = 0;
+            virtual void emplace_vertex_buffer(const sptr<vertex_buffers> &vertex_buffer) = 0;
 
             /**
              * @brief Adds an index buffer to the vertex array.
              *
              * @param index_buffer The index buffer to be added.
              */
-            virtual void set_index_buffer(const std::shared_ptr<index_buffers> &index_buffer) = 0;
+            virtual void set_index_buffer(const sptr<index_buffers> &index_buffer) = 0;
 
             /**
              * @brief Returns the vector of vertex buffers associated with the vertex array.
              *
              * @return The vector of vertex buffers.
              */
-            virtual const std::vector<std::shared_ptr<vertex_buffers>> &get_vertex_buffers() const = 0;
+            virtual const std::vector<sptr<vertex_buffers>> &get_vertex_buffers() const = 0;
 
             /**
              * @brief Returns the index buffer associated with the vertex array.
              *
              * @return The index buffer.
              */
-            virtual const std::shared_ptr<index_buffers> &get_index_buffer() const = 0;
+            virtual const sptr<index_buffers> &get_index_buffer() const = 0;
     };
 
     /**
@@ -510,7 +510,7 @@ namespace core::renderer
              * 
              * @param vertex_array The vertex array to be drawn.
              */
-            virtual void draw_indexed(const std::shared_ptr<vertex_array>& vertex_array) = 0;
+            virtual void draw_indexed(const sptr<vertex_array>& vertex_array) = 0;
 
             /**
              * @brief Set the clear color for the renderer.
@@ -575,7 +575,7 @@ namespace core::renderer
             }
 
         private:
-            static std::shared_ptr<renderer_api> m_renderer_api; /**< The current renderer API. */
+            static sptr<renderer_api> m_renderer_api; /**< The current renderer API. */
     };
 
     class TRIMANA_API orthographic_camera
@@ -631,7 +631,7 @@ namespace core::renderer
              *
              * @param vertex_array A shared pointer to the vertex array to be submitted.
              */
-            static void submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array, const glm::mat4& model_matrix = glm::mat4(1.0f));
+            static void submit(const sptr<shader>& shader_ptr, const sptr<vertex_array> &vertex_array, const glm::mat4& model_matrix = glm::mat4(1.0f));
 
             
             /**

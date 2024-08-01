@@ -4,7 +4,7 @@ namespace core::inputs
 {
     std::weak_ptr<core::windows::window> input::m_window;
 
-    void input::target_window(const std::shared_ptr<core::windows::window> window)
+    void input::target_window(const sptr<core::windows::window> window)
     {
         m_window = window;
     }

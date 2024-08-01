@@ -258,7 +258,7 @@ using namespace core::events;
 
 namespace core::layers
 {
-    imgui_layer::imgui_layer(std::shared_ptr<window> window, ui_color_scheme color_scheme) : m_window(window), m_color_scheme(color_scheme), layer("imgui_layer") {}
+    imgui_layer::imgui_layer(sptr<window> window, ui_color_scheme color_scheme) : m_window(window), m_color_scheme(color_scheme), layer("imgui_layer") {}
 
     void imgui_layer::on_attach()
     {

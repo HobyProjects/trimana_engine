@@ -11,7 +11,7 @@
 #include <utils/time_steps.hpp>
 #include <renderer/renderer.hpp>
 
-namespace trimana_engine::app {
+namespace engine::app {
 
   /**
    * @class application
@@ -71,7 +71,7 @@ namespace trimana_engine::app {
        *
        * @param layer A shared pointer to the layer to be pushed.
        */
-      void push_layer(std::shared_ptr<core::layers::layer> layer);
+      void push_layer(core::sptr<core::layers::layer> layer);
 
       /**
        * Pushes an overlay onto the layer stack.
@@ -82,7 +82,7 @@ namespace trimana_engine::app {
        *
        * @param overlay A shared pointer to the overlay to be pushed.
        */
-      void push_overlay(std::shared_ptr<core::layers::layer> overlay);
+      void push_overlay(core::sptr<core::layers::layer> overlay);
 
     private:
       /**
@@ -109,7 +109,7 @@ namespace trimana_engine::app {
        * object. It is used to access and control the window
        * functionality.
        */
-      std::shared_ptr<core::windows::window> m_window{nullptr};
+      core::sptr<core::windows::window> m_window{nullptr};
 
       /**
        * A smart pointer that manages the lifetime of an object of type
@@ -134,7 +134,7 @@ namespace trimana_engine::app {
        * This member variable holds a shared pointer to the ImGui layer object.
        * It is used to access and control the ImGui layer functionality.
        */
-      std::shared_ptr<core::layers::imgui_layer> m_imgui_layer{nullptr};
+      core::sptr<core::layers::imgui_layer> m_imgui_layer{nullptr};
 
 
       /**
@@ -146,5 +146,5 @@ namespace trimana_engine::app {
       float m_last_frame_time{0.0f};
   };
 
-}  // namespace trimana_engine::app
+}  // namespace engine::app
 #endif  // __application_h__  

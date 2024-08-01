@@ -7,7 +7,7 @@
 #include <renderer/renderer.hpp>
 #include <layers/imgui_layer.hpp>
 
-namespace trimana_engine::app
+namespace engine::app
 {
     class example_layer : public core::layers::layer{
 
@@ -22,9 +22,9 @@ namespace trimana_engine::app
             void on_event(core::events::event& e) override;
 
         private:
-            std::shared_ptr<core::renderer::shader> m_shader;
-            std::shared_ptr<core::renderer::vertex_array> m_vertex_array_triangle;
-            std::shared_ptr<core::renderer::vertex_array> m_vertex_array_square;
+            core::sptr<core::renderer::shader> m_shader;
+            core::sptr<core::renderer::vertex_array> m_vertex_array_triangle;
+            core::sptr<core::renderer::vertex_array> m_vertex_array_square;
 
             core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
             glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};

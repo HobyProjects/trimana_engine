@@ -6,7 +6,7 @@ using namespace core::layers;
 using namespace core::renderer;
 using namespace core::timers;
 
-namespace trimana_engine::app
+namespace engine::app
 {
     void example_layer::on_attach()
     {
@@ -112,6 +112,9 @@ namespace trimana_engine::app
 
         renderer::begin_scene(m_camera.get_view_projection());
         glm::mat4 scaler = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+
+        m_shader->bind();
+        m_shader->set_uniform_4f("u_color", m_color);
 
         for(int x = 0; x < 20; x++)
         {

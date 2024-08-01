@@ -7,7 +7,7 @@ namespace core::layers
      *
      * @param layer The layer to be added.
      */
-    void layer_stack::push_layer(std::shared_ptr<layer> layer)
+    void layer_stack::push_layer(sptr<layer> layer)
     {
         m_layers.emplace(m_layers.begin() + m_layer_insert_index++, layer);
     }
@@ -17,7 +17,7 @@ namespace core::layers
      *
      * @param layer The overlay to be added.
      */
-    void layer_stack::push_overlay(std::shared_ptr<layer> layer)
+    void layer_stack::push_overlay(sptr<layer> layer)
     {
         m_layers.emplace_back(layer);
     }
@@ -27,7 +27,7 @@ namespace core::layers
      *
      * @param layer The layer to be removed.
      */
-    void layer_stack::pop_layer(std::shared_ptr<layer> layer)
+    void layer_stack::pop_layer(sptr<layer> layer)
     {
         auto it = std::find(m_layers.begin(), m_layers.begin() + m_layer_insert_index, layer);
         if (it != m_layers.begin() + m_layer_insert_index)
@@ -44,7 +44,7 @@ namespace core::layers
      *
      * @param layer The overlay to be removed.
      */
-    void layer_stack::pop_overlay(std::shared_ptr<layer> layer)
+    void layer_stack::pop_overlay(sptr<layer> layer)
     {
         auto it = std::find(m_layers.begin() + m_layer_insert_index, m_layers.end(), layer);
         if (it != m_layers.end())

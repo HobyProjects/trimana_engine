@@ -7,8 +7,8 @@ namespace core::loggers
     /**
      * @brief Shared loggers for core and engine
      */
-    std::shared_ptr<spdlog::logger> log::m_core_logger;
-    std::shared_ptr<spdlog::logger> log::m_engine_logger;
+    sptr<spdlog::logger> log::m_core_logger;
+    sptr<spdlog::logger> log::m_engine_logger;
 
     /**
      * @brief Initializes the loggers

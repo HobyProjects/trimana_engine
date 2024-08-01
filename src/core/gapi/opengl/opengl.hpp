@@ -182,11 +182,11 @@ namespace core::gapi::opengl
          * 
          * @return A shared pointer to the OpenGL information object.
          */
-        std::shared_ptr<gl_info> get_info() const { return m_info; }
+        sptr<gl_info> get_info() const { return m_info; }
 
     private:
         GLFWwindow* m_window{ nullptr }; /**< The GLFW window associated with the OpenGL context. */
-        std::shared_ptr<gl_info> m_info{nullptr}; /**< The OpenGL information object that contains information about the OpenGL context. */
+        sptr<gl_info> m_info{nullptr}; /**< The OpenGL information object that contains information about the OpenGL context. */
     };
 
     /**
@@ -346,28 +346,28 @@ namespace core::gapi::opengl
              *
              * @param vertex_buffer The vertex buffer to add.
              */
-            virtual void emplace_vertex_buffer(const std::shared_ptr<renderer::vertex_buffers> &vertex_buffer) override;
+            virtual void emplace_vertex_buffer(const sptr<renderer::vertex_buffers> &vertex_buffer) override;
 
             /**
              * @brief Sets the index buffer for the vertex array.
              *
              * @param index_buffer The index buffer to set.
              */
-            virtual void set_index_buffer(const std::shared_ptr<renderer::index_buffers> &index_buffer) override;
+            virtual void set_index_buffer(const sptr<renderer::index_buffers> &index_buffer) override;
 
             /**
              * @brief Returns the vector of vertex buffers associated with the vertex array.
              *
              * @return The vector of vertex buffers.
              */
-            const std::vector<std::shared_ptr<renderer::vertex_buffers>> &get_vertex_buffers() const override { return m_vertex_buffers; }
+            const std::vector<sptr<renderer::vertex_buffers>> &get_vertex_buffers() const override { return m_vertex_buffers; }
 
             /**
              * @brief Returns the index buffer associated with the vertex array.
              *
              * @return The index buffer.
              */
-            const std::shared_ptr<renderer::index_buffers> &get_index_buffer() const override { return m_index_buffer; }
+            const sptr<renderer::index_buffers> &get_index_buffer() const override { return m_index_buffer; }
 
         private:
             uint32_t m_renderer_id{NULL};                                            // The ID of the renderer
@@ -557,7 +557,7 @@ namespace core::gapi::opengl
          * 
          * @param vertex_array The shared pointer to the vertex array.
          */
-        void draw_indexed(const std::shared_ptr<renderer::vertex_array>& vertex_array) override;
+        void draw_indexed(const sptr<renderer::vertex_array>& vertex_array) override;
 
         /**
          * @brief Sets the clear color for the renderer.

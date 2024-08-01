@@ -9,7 +9,7 @@ using namespace core::renderer;
 using namespace core::gapi::opengl;
 using namespace core::timers;
 
-namespace trimana_engine::app {
+namespace engine::app {
 
   application::application() 
   {
@@ -54,7 +54,7 @@ namespace trimana_engine::app {
     event_handler handler(e);
     handler.dispatch<window_close_event>(EVENTS_CALLBACK(application::on_window_close));
 
-    for (std::vector<std::shared_ptr<layer>>::reverse_iterator it = m_layer_stack.rbegin(); it != m_layer_stack.rend(); ++it) 
+    for (std::vector<core::sptr<layer>>::reverse_iterator it = m_layer_stack.rbegin(); it != m_layer_stack.rend(); ++it) 
     {
       if (e.handled) break;
         (*it)->on_event(e);
@@ -82,4 +82,4 @@ namespace trimana_engine::app {
     m_window->get_attributes().is_active = false;
     return true;
   }
-}  // namespace trimana_engine::app
+}  // namespace engine::app

@@ -41,7 +41,7 @@ namespace core::layers
          *
          * @param layer The layer to add to the stack.
          */
-        void push_layer(std::shared_ptr<layer> layer);
+        void push_layer(sptr<layer> layer);
 
         /**
          * @brief Add a new overlay to the stack.
@@ -54,7 +54,7 @@ namespace core::layers
          *
          * @param layer The overlay to add to the stack.
          */
-        void push_overlay(std::shared_ptr<layer> layer);
+        void push_overlay(sptr<layer> layer);
 
         /**
          * @brief Remove a layer from the stack.
@@ -66,7 +66,7 @@ namespace core::layers
          *
          * @param layer The layer to remove from the stack.
          */
-        void pop_layer(std::shared_ptr<layer> layer);
+        void pop_layer(sptr<layer> layer);
 
         /**
          * @brief Remove an overlay from the stack.
@@ -78,7 +78,7 @@ namespace core::layers
          *
          * @param layer The overlay to remove from the stack.
          */
-        void pop_overlay(std::shared_ptr<layer> layer);
+        void pop_overlay(sptr<layer> layer);
 
         /**
          * @brief Begin iterator for the layer stack.
@@ -87,7 +87,7 @@ namespace core::layers
          *
          * @return The begin iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::iterator begin() { return m_layers.begin(); }
+        std::vector<sptr<layer>>::iterator begin() { return m_layers.begin(); }
 
         /**
          * @brief End iterator for the layer stack.
@@ -96,7 +96,7 @@ namespace core::layers
          *
          * @return The end iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::iterator end() { return m_layers.end(); }
+        std::vector<sptr<layer>>::iterator end() { return m_layers.end(); }
 
         /**
          * @brief Reverse begin iterator for the layer stack.
@@ -105,7 +105,7 @@ namespace core::layers
          *
          * @return The reverse begin iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::reverse_iterator rbegin() { return m_layers.rbegin(); }
+        std::vector<sptr<layer>>::reverse_iterator rbegin() { return m_layers.rbegin(); }
 
         /**
          * @brief Reverse end iterator for the layer stack.
@@ -114,7 +114,7 @@ namespace core::layers
          *
          * @return The reverse end iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::reverse_iterator rend() { return m_layers.rend(); }
+        std::vector<sptr<layer>>::reverse_iterator rend() { return m_layers.rend(); }
 
         /**
          * @brief Const begin iterator for the layer stack.
@@ -123,7 +123,7 @@ namespace core::layers
          *
          * @return The const begin iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::const_iterator begin() const { return m_layers.begin(); }
+        std::vector<sptr<layer>>::const_iterator begin() const { return m_layers.begin(); }
 
         /**
          * @brief Const end iterator for the layer stack.
@@ -132,7 +132,7 @@ namespace core::layers
          *
          * @return The const end iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::const_iterator end() const { return m_layers.end(); }
+        std::vector<sptr<layer>>::const_iterator end() const { return m_layers.end(); }
 
         /**
          * @brief Const reverse begin iterator for the layer stack.
@@ -141,7 +141,7 @@ namespace core::layers
          *
          * @return The const reverse begin iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::const_reverse_iterator rbegin() const { return m_layers.rbegin(); }
+        std::vector<sptr<layer>>::const_reverse_iterator rbegin() const { return m_layers.rbegin(); }
 
         /**
          * @brief Const reverse end iterator for the layer stack.
@@ -150,7 +150,7 @@ namespace core::layers
          *
          * @return The const reverse end iterator for the layer stack.
          */
-        std::vector<std::shared_ptr<layer>>::const_reverse_iterator rend() const { return m_layers.rend(); }
+        std::vector<sptr<layer>>::const_reverse_iterator rend() const { return m_layers.rend(); }
 
     private:
         /*
@@ -159,7 +159,7 @@ namespace core::layers
          * This vector contains all the layers in the layer stack. The order of the layers
          * in this vector is the order in which they will be rendered and updated.
          */
-        std::vector<std::shared_ptr<layer>> m_layers;
+        std::vector<sptr<layer>> m_layers;
 
         /*
          * @brief The index of the layer to insert the new layer into the layer stack.

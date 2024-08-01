@@ -1,5 +1,17 @@
 #ifndef __platform_detection_h__
 #define __platform_detection_h__
+#include <memory>
+namespace core
+{
+    template<typename T>
+    using uptr = std::unique_ptr<T>;
+
+    template<typename T>
+    using sptr = std::shared_ptr<T>;
+
+    template<typename T>
+    using wptr = std::weak_ptr<T>;
+}
 
 #if defined(_WIN32) || defined(_WIN64)
     // Define platform as Windows

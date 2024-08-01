@@ -51,7 +51,7 @@ namespace core::loggers
          * 
          * @return A reference to the core logger.
          */
-        static std::shared_ptr<spdlog::logger> &get_core_logger() { return m_core_logger; }
+        static sptr<spdlog::logger> &get_core_logger() { return m_core_logger; }
 
         /**
          * @brief Returns a reference to the engine logger.
@@ -61,7 +61,7 @@ namespace core::loggers
          * 
          * @return A reference to the engine logger.
          */
-        static std::shared_ptr<spdlog::logger> &get_engine_logger() { return m_engine_logger; }
+        static sptr<spdlog::logger> &get_engine_logger() { return m_engine_logger; }
 
     private:
         /**
@@ -70,7 +70,7 @@ namespace core::loggers
          * The core logger is the logger that is used for logging messages that
          * are related to the Trimana library itself.
          */
-        static std::shared_ptr<spdlog::logger> m_core_logger;
+        static sptr<spdlog::logger> m_core_logger;
 
         /**
          * @brief The engine logger.
@@ -78,7 +78,7 @@ namespace core::loggers
          * The engine logger is the logger that is used for logging messages that
          * are related to the engine.
          */
-        static std::shared_ptr<spdlog::logger> m_engine_logger;
+        static sptr<spdlog::logger> m_engine_logger;
     };
 }
 

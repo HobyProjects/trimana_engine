@@ -40,7 +40,7 @@ namespace core::layers
          * @param window The window to attach the layer to.
          * @param color_scheme The color scheme to use for the UI.
          */
-        imgui_layer(std::shared_ptr<core::windows::window> window, ui_color_scheme color_scheme = ui_color_scheme::dark);
+        imgui_layer(sptr<core::windows::window> window, ui_color_scheme color_scheme = ui_color_scheme::dark);
 
         /**
          * @brief Default destructor.
@@ -180,7 +180,7 @@ namespace core::layers
         bool on_mouse_wheel_scroll(core::events::mouse_wheel_scroll_event &e);
 
     private:
-        std::weak_ptr<core::windows::window> m_window; /**< The window the layer is attached to. */
+        wptr<core::windows::window> m_window; /**< The window the layer is attached to. */
         ui_color_scheme m_color_scheme; /**< The color scheme for the UI. */
     };
 }

@@ -15,7 +15,7 @@ namespace core::inputs
          * @brief Sets the target window for input events.
          * @param window A shared pointer to the target window.
          */
-        static void target_window(const std::shared_ptr<core::windows::window> window);
+        static void target_window(const sptr<core::windows::window> window);
 
         /**
          * @brief Checks if a specific key is currently pressed.
@@ -56,7 +56,7 @@ namespace core::inputs
         input& operator=(const input&) = delete;
 
     private:
-        static std::weak_ptr<core::windows::window> m_window;
+        static wptr<core::windows::window> m_window;
     };
     
 } // namespace trimana_core::inputs

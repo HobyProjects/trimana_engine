@@ -58,7 +58,7 @@ namespace core::renderer
     {
     }
 
-    void renderer::submit(const std::shared_ptr<shader>& shader_ptr, const std::shared_ptr<vertex_array> &vertex_array, const glm::mat4& model_matrix)
+    void renderer::submit(const sptr<shader>& shader_ptr, const sptr<vertex_array> &vertex_array, const glm::mat4& model_matrix)
     {
         shader_ptr->bind();
         shader_ptr->set_uniform_mat4("u_projection_view", m_view_projection_matrix);
