@@ -572,6 +572,87 @@ namespace core::gapi::opengl
         void clear() override;
     };
 
+    /**
+     * @brief The OpenGL implementation of a 2D texture.
+     *
+     * This class represents a 2D texture in OpenGL.
+     * It inherits from the base class texture_2d.
+     */
+    class TRIMANA_API gl_texture_2d : public renderer::texture_2d
+    {
+    public:
+        /**
+         * @brief Constructs a gl_texture_2d object with the specified file path.
+         * 
+         * @param path The file path of the texture.
+         */
+        gl_texture_2d(const std::string& path);
+
+        /**
+         * @brief Destroys the gl_texture_2d object.
+         */
+        virtual ~gl_texture_2d();
+
+        /**
+         * @brief Binds the texture.
+         */
+        virtual void bind(uint32_t slot = 0) const override;
+
+        /**
+         * @brief Unbinds the texture.
+         */
+        virtual void unbind() const override;
+
+        /**
+         * @brief Gets the width of the texture.
+         * 
+         * @return The width of the texture.
+         */
+        virtual int32_t width() const override { return m_width; }
+
+        /**
+         * @brief Gets the height of the texture.
+         * 
+         * @return The height of the texture.
+         */
+        virtual int32_t height() const override { return m_height; }
+
+        /**
+         * @brief Gets the renderer ID of the texture.
+         * 
+         * @return The renderer ID of the texture.
+         */
+        virtual uint32_t renderer_id() const override { return m_renderer_id; }
+
+        /**
+         * @brief Gets the texture slot of the texture.
+         * 
+         * @return The texture slot of the texture.
+         */
+        virtual uint32_t slot() const override { return m_slot; }
+
+        /**
+         * @brief Gets the number of channels of the texture.
+         * 
+         * @return The number of channels of the texture.
+         */
+        virtual int32_t channels() const override { return m_channels; }
+
+        /**
+         * @brief Gets the data of the texture.
+         * 
+         * @return The data of the texture.
+         */
+        virtual uint8_t* data() const override { return m_local_buffer; }
+
+    protected:
+        uint32_t m_renderer_id{0};
+        std::string m_path{};
+        int32_t m_slot{0};
+        int32_t m_width{0}, m_height{0}, m_channels{0};
+        uint8_t* m_local_buffer{nullptr};
+    };
+
 } 
 
 #endif // __opengl_h__

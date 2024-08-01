@@ -1,5 +1,5 @@
-#include "opengl.hpp"
 #include "renderer.hpp"
+#include "opengl.hpp"
 
 using namespace core::gapi::opengl;
 
@@ -41,6 +41,16 @@ namespace core::renderer
         {
             case renderer_api::api::none:       return nullptr;
             case renderer_api::api::opengl:     return new gl_shader(vertex_shader, fragment_shader);
+            default:                            return nullptr;
+        }
+    }
+
+    sptr<texture_2d> make_texture_2d(const std::string & path)
+    {
+        switch (renderer_api::get_api())
+        {
+            case renderer_api::api::none:       return nullptr;
+            case renderer_api::api::opengl:     return std::make_shared<gl_texture_2d>(path);
             default:                            return nullptr;
         }
     }

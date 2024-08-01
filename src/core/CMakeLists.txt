@@ -65,6 +65,7 @@ if(NOT BUILD_SHARED_LIBS)
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
         ${IMGUI_HEADERS} # Headers for the ImGui library
+        ${STB_IMAGE_HEADER} # Header for the STB image library
     )
 
 # If BUILD_SHARED_LIBS is set, create a shared library
@@ -76,6 +77,7 @@ else()
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
         ${IMGUI_HEADERS} # Headers for the ImGui library
+        ${STB_IMAGE_HEADER} # Header for the STB image library
     )
 
     # Custom target to copy GLEW runtimes into the build directory
@@ -100,6 +102,9 @@ target_include_directories(
     # - IMGUI_BACKENDS_DIR: The directory for the ImGui backends.
     ${IMGUI_DIR}
     ${IMGUI_BACKENDS_DIR}
+
+    # The following variables are used to specify the directories for STB image library.
+    ${STB_IMAGE_SOURCE_DIR}
 )
 
 if(NOT BUILD_SHARED_LIBS)

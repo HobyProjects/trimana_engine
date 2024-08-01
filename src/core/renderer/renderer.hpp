@@ -569,7 +569,7 @@ namespace core::renderer
              * @brief Draws the indexed vertex array using the current renderer API.
              * @param vertex_array The vertex array to draw.
              */
-            inline static void api_base_draw_indexed(const std::shared_ptr<vertex_array> &vertex_array)
+            inline static void api_base_draw_indexed(const sptr<vertex_array> &vertex_array)
             {
                 m_renderer_api->draw_indexed(vertex_array);
             }
@@ -657,6 +657,43 @@ namespace core::renderer
         private:
             static glm::mat4 m_view_projection_matrix; /**< The view projection matrix. */
     };
+
+
+    class texture
+    {
+        public:
+            texture() = default;
+            virtual ~texture() = default;
+
+            virtual void bind(uint32_t slot = 0) const = 0;
+            virtual void unbind() const = 0;
+
+            virtual uint32_t slot() const = 0;
+            virtual int32_t width() const = 0;
+            virtual int32_t height() const = 0;
+            virtual uint32_t renderer_id() const = 0;
+            virtual int32_t channels() const = 0;
+            virtual uint8_t* data() const = 0;
+    };
+
+    class texture_2d : public texture
+    {
+        public:
+            texture_2d() = default;
+            ~texture_2d() = default;
+
+            virtual void bind(uint32_t slot = 0) const override {}
+            virtual void unbind() const override {}
+
+            virtual uint32_t slot() const override { return 0;}
+            virtual int32_t width() const override { return 0;}
+            virtual int32_t height() const override { return 0;}
+            virtual uint32_t renderer_id() const override { return 0;}
+            virtual int32_t channels() const override { return 0;}
+            virtual uint8_t* data() const override { return nullptr; }
+    };
+
+    sptr<texture_2d> make_texture_2d(const std::string &path);
 
 }
 

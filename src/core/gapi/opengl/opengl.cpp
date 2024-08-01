@@ -1,4 +1,8 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include "opengl.hpp"
+
 
 namespace core::gapi::opengl
 {
@@ -434,5 +438,40 @@ namespace core::gapi::opengl
         gl_call(glDrawElements(GL_TRIANGLES, index_buffer->get_count(), GL_UNSIGNED_INT, nullptr));
     }
 
+
+    gl_texture_2d::gl_texture_2d(const std::string & path)
+    {
+        m_path = path;
+        stbi_set_flip_vertically_on_load(1);
+        m_local_buffer = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 4);
+        TRIMANA_ASSERT(m_local_buffer == nullptr, "Failed to load image");
+
+        gl_call(glGenTextures(1, &m_renderer_id));
+        gl_call(glBindTexture(GL_TEXTURE_2D, m_renderer_id));
+
+        gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+        gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+        gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+        gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+        gl_call(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_local_buffer));
+    }
+
+    gl_texture_2d::~gl_texture_2d()
+    {
+        stbi_image_free(m_local_buffer);
+        gl_call(glDeleteTextures(1, &m_renderer_id));
+    }
+
+    void gl_texture_2d::bind(uint32_t slot) const
+    {
+        gl_call(glActiveTexture(GL_TEXTURE0 + slot));
+        gl_call(glBindTexture(GL_TEXTURE_2D, m_renderer_id));
+    }
+
+    void gl_texture_2d::unbind() const
+    {
+        gl_call(glBindTexture(GL_TEXTURE_2D, 0));
+    }
 
 }

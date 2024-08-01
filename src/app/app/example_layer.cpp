@@ -41,17 +41,23 @@ namespace engine::app
         m_vertex_array_triangle->set_index_buffer(index_buffer_triangle);
 
         m_shader.reset(create_shader("shaders/main_vertex.glsl", "shaders/main_fragment.glsl"));
+        m_texture_shader.reset(create_shader("shaders/texture_vertex.glsl", "shaders/texture_fragment.glsl"));
+
+        m_texture = make_texture_2d("textures/logo-color.png");
+        
+        m_texture_shader->bind();
+        m_texture_shader->set_uniform_1i("u_texture", 0);
 
         ///////////////////////////////////////////////////////////////////////////////
 
         // Square
 
         float square_vertices[] = {
-            // Position             // Color
-            -0.5f, -0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
-             0.5f, -0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
-             0.5f,  0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
-            -0.5f,  0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f
+            // Position             //Tex coords    // Color
+            -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+             0.5f, -0.5f, 0.0f,     1.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+             0.5f,  0.5f, 0.0f,     1.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+            -0.5f,  0.5f, 0.0f,     0.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f
         };
 
         unsigned int square_indices[6] = {0, 1, 2, 2, 3, 0};
@@ -64,6 +70,7 @@ namespace engine::app
 
         buffer_layout layout_square = {
             {shader_data_type::float_3, "a_position", element_components::xyz},
+            {shader_data_type::float_2, "a_texcoord", element_components::uv},
             {shader_data_type::float_4, "a_color", element_components::rgba}
         };
 
@@ -126,7 +133,11 @@ namespace engine::app
             }
         }
 
-        renderer::submit(m_shader, m_vertex_array_triangle);
+        m_texture->bind();
+        renderer::submit(m_texture_shader, m_vertex_array_square, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+
+        //renderer::submit(m_shader, m_vertex_array_triangle);
         renderer::end_scene();
 
     }
