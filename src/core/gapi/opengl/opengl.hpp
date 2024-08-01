@@ -479,7 +479,7 @@ namespace core::gapi::opengl
              * @param value The value to set.
              * @return `true` if the uniform variable was found and set successfully, `false` otherwise.
              */
-            virtual bool set_uniform_mat4f(const std::string &name, const glm::mat4 &value) override;
+            virtual bool set_uniform_mat4(const std::string &name, const glm::mat4 &value) override;
 
             /**
              * @brief Sets a 3x3 matrix uniform variable in the shader.
@@ -488,7 +488,7 @@ namespace core::gapi::opengl
              * @param value The value to set.
              * @return `true` if the uniform variable was found and set successfully, `false` otherwise.
              */
-            virtual bool set_uniform_mat3f(const std::string &name, const glm::mat3 &value) override;
+            virtual bool set_uniform_mat3(const std::string &name, const glm::mat3 &value) override;
 
             /**
              * @brief Returns the ID of the shader program.

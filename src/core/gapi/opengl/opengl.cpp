@@ -320,7 +320,7 @@ namespace core::gapi::opengl
         return true;
     }
 
-    bool gl_shader::set_uniform_mat4f(const std::string &name, const glm::mat4 &value)
+    bool gl_shader::set_uniform_mat4(const std::string &name, const glm::mat4 &value)
     {
         uint32_t uniform_location = uniform_validator(name);
         if(uniform_location < 0)
@@ -333,7 +333,7 @@ namespace core::gapi::opengl
         return true;
     }
 
-    bool gl_shader::set_uniform_mat3f(const std::string &name, const glm::mat3 &value)
+    bool gl_shader::set_uniform_mat3(const std::string &name, const glm::mat3 &value)
     {
         uint32_t uniform_location = uniform_validator(name);
         if(uniform_location < 0)

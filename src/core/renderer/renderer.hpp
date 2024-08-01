@@ -465,7 +465,7 @@ namespace core::renderer
              * @param value The 4x4 matrix value to set.
              * @return True if the uniform was set successfully, false otherwise.
              */
-            virtual bool set_uniform_mat4f(const std::string &name, const glm::mat4 &value) = 0;
+            virtual bool set_uniform_mat4(const std::string &name, const glm::mat4 &value) = 0;
 
             /**
              * @brief Sets a uniform 3x3 matrix value in the shader.
@@ -473,7 +473,7 @@ namespace core::renderer
              * @param value The 3x3 matrix value to set.
              * @return True if the uniform was set successfully, false otherwise.
              */
-            virtual bool set_uniform_mat3f(const std::string &name, const glm::mat3 &value) = 0;
+            virtual bool set_uniform_mat3(const std::string &name, const glm::mat3 &value) = 0;
     };
 
     /**

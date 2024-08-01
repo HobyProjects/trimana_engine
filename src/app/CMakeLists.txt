@@ -9,11 +9,13 @@ set(
 set(
     TRIMANA_APP_HEADERS
     ${PROJECT_SOURCE_DIR}/src/app/app/application.hpp
+    ${PROJECT_SOURCE_DIR}/src/app/app/example_layer.hpp
 )
 
 set(
     TRIMANA_APP_SOURCES
     ${PROJECT_SOURCE_DIR}/src/app/app/application.cpp
+    ${PROJECT_SOURCE_DIR}/src/app/app/example_layer.cpp
     ${PROJECT_SOURCE_DIR}/src/app/entrypoint/trimana.cpp
 )
 

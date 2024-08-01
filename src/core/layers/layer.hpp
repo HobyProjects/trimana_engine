@@ -88,6 +88,14 @@ namespace core::layers
         virtual void on_event(core::events::event &e) {}
 
         /**
+         * @brief Called every frame to update the ImGui layer.
+         *
+         * This method is called by the engine every frame to update the ImGui layer.
+         * The layer can use this method to update the ImGui UI.
+         */
+        virtual void on_ui_updates(){}
+
+        /**
          * @brief Get the name of the layer.
          *
          * Returns the name of the layer, which is provided in the constructor to uniquely identify

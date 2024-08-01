@@ -303,30 +303,14 @@ namespace core::layers
     {
         ImGuiIO &io = ImGui::GetIO();
         io.DeltaTime = delta_time;
+    }
 
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
+    void imgui_layer::on_ui_updates()
+    {
         //[TODO]: enable dockspace when we working with framebuffers / multiple viewports
         //create_dockspace();
-
+        
         ImGui::ShowDemoWindow();
-
-        ImGui::EndFrame();
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        // Update and Render additional Platform Windows
-        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            GLFWwindow *backup_current_context = glfwGetCurrentContext();
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
-        }
     }
 
     void imgui_layer::on_event(core::events::event &e)
@@ -344,6 +328,33 @@ namespace core::layers
         handler.dispatch<mouse_button_release_event>(EVENTS_CALLBACK(imgui_layer::on_mouse_button_release));
         handler.dispatch<mouse_wheel_scroll_event>(EVENTS_CALLBACK(imgui_layer::on_mouse_wheel_scroll));
     }
+
+    void imgui_layer::begin()
+    {
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+    }
+ 
+
+    void imgui_layer::end()
+    {
+        ImGui::EndFrame();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        // Update and Render additional Platform Windows
+        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
+        ImGuiIO &io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            GLFWwindow *backup_current_context = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_current_context);
+        }
+    }   
 
     void imgui_layer::use_color_scheme_dark()
     {

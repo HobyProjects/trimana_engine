@@ -15,7 +15,7 @@ namespace trimana_engine::app {
 
   /**
    * @class application
-   * @brief Represents the main application class.
+   * @brief Represents the run application class.
    *
    * The application class is responsible for running the application
    * and handling events. It manages the window object and the layer stack.
@@ -48,7 +48,7 @@ namespace trimana_engine::app {
        * processes them. It does not return until the application
        * is closed.
        */
-      void main();
+      void run();
 
       /**
        * Handles events.
@@ -109,7 +109,7 @@ namespace trimana_engine::app {
        * object. It is used to access and control the window
        * functionality.
        */
-      std::shared_ptr<core::windows::window> m_window;
+      std::shared_ptr<core::windows::window> m_window{nullptr};
 
       /**
        * A smart pointer that manages the lifetime of an object of type
@@ -126,25 +126,25 @@ namespace trimana_engine::app {
        * In this case, the `std::shared_ptr` is used to manage the lifetime of an
        * object of type `core::layers::layer_stack`.
        */
-      std::shared_ptr<core::layers::layer_stack> m_layer_stack;
+      std::shared_ptr<core::layers::layer_stack> m_layer_stack{nullptr};
 
-      std::shared_ptr<core::renderer::shader> m_shader;
-      std::shared_ptr<core::renderer::vertex_array> m_vertex_array_triangle;
-      std::shared_ptr<core::renderer::vertex_array> m_vertex_array_square;
-
-      core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
-      glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};
-      float m_camera_speed{1.0f};
-      float m_camera_rotation{0.0f};
-      float m_camera_rotation_speed{30.0f};
-
-      float m_last_frame_time = 0.0f;
-
-      glm::vec3 m_model_position{0.0f, 0.0f, 0.0f};
-      float m_model_speed{0.5f};
+      /**
+       * A shared pointer to the ImGui layer object.
+       *
+       * This member variable holds a shared pointer to the ImGui layer object.
+       * It is used to access and control the ImGui layer functionality.
+       */
+      std::shared_ptr<core::layers::imgui_layer> m_imgui_layer{nullptr};
 
 
-};
+      /**
+       * The time of the last frame.
+       *
+       * This member variable holds the time of the last frame. It is used to
+       * calculate the time taken to render each frame.
+       */
+      float m_last_frame_time{0.0f};
+  };
 
 }  // namespace trimana_engine::app
-#endif  // __application_h__
+#endif  // __application_h__  

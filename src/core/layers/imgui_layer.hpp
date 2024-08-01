@@ -63,10 +63,25 @@ namespace core::layers
         virtual void on_update(core::timers::time_steps delta_time) override;
 
         /**
+         * @brief Called every frame to update the ImGui layer.
+         */
+        virtual void on_ui_updates() override;
+
+        /**
          * @brief Called when an event occurs.
          * @param e The event that occurred.
          */
         virtual void on_event(core::events::event &e) override;
+
+        /**
+         * @brief Begins the ImGui layer.
+         */
+        void begin();
+
+        /**
+         * @brief Ends the ImGui layer.
+         */
+        void end();
 
     private:
         /**
