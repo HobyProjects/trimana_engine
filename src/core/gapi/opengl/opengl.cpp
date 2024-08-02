@@ -183,7 +183,12 @@ namespace core::gapi::opengl
     //////////////////////////////////////// GL SHADER /////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
-     gl_shader::gl_shader(const std::string &vertex_shader, const std::string &fragment_shader)
+    gl_shader::gl_shader(const std::string & path)
+    {
+        
+    }
+
+    gl_shader::gl_shader(const std::string &vertex_shader, const std::string &fragment_shader)
     {
         m_program_id = glCreateProgram();
         if(!m_program_id)
@@ -394,32 +399,31 @@ namespace core::gapi::opengl
     
     std::string gl_shader::import_shader(const std::string &file_path) const
     {
-        std::string fileContent{" "};
-        std::fstream shaderFile;
-
-        shaderFile.open(file_path.c_str(), std::ios::in);
-        if (!shaderFile.is_open())
+        std::string result;
+        std::ifstream infile(file_path, std::ios::in, std::ios::binary);
+        if(infile)
         {
-            TRIMANA_CORE_CRITICAL("Unbale to open file: {0}", file_path.c_str());
-            return fileContent;
+            infile.seekg(0, std::ios::end);
+            result.resize(infile.tellg());
+            infile.seekg(0, std::ios::beg);
+            infile.read(&result[0], result.size());
+            infile.close();
+            return result;
         }
         else
         {
-            std::string lines{" "};
-            while (!shaderFile.eof())
-            {
-                std::getline(shaderFile, lines);
-                fileContent.append(lines + "\n");
-            }
-
-            shaderFile.close();
+            TRIMANA_CORE_ERROR("Failed to open file >> {0}", file_path);
+            return result = "";
         }
+    }
 
-        return fileContent;
+    std::unordered_map<GLenum,std::string> gl_shader::pre_process(const std::string & source)
+    {
+        return std::unordered_map<GLenum,std::string>();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////// GL RENDERER ///////////////////////////////////////////////
+    //////////////////////////////////////// GL RENDERER /////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
     void gl_api_base::set_clear_color(const glm::vec4& color) 
@@ -430,6 +434,12 @@ namespace core::gapi::opengl
     void gl_api_base::clear() 
     {
         gl_call(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    }
+    
+    void gl_api_base::init()
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     void gl_api_base::draw_indexed(const sptr<core::renderer::vertex_array>& vertex_array) 
@@ -446,15 +456,27 @@ namespace core::gapi::opengl
         m_local_buffer = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 4);
         TRIMANA_ASSERT(m_local_buffer == nullptr, "Failed to load image");
 
+        GLenum internal_format = 0, data_format = 0;
+        if(m_channels == 4)
+        {
+            internal_format = GL_RGBA8;
+            data_format = GL_RGBA;
+        }
+        else if(m_channels == 3)
+        {
+            internal_format = GL_RGB8;
+            data_format = GL_RGB;
+        }
+
+        TRIMANA_ASSERT(internal_format == 0 || data_format == 0, "Format not supported");
+
         gl_call(glGenTextures(1, &m_renderer_id));
         gl_call(glBindTexture(GL_TEXTURE_2D, m_renderer_id));
-
         gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
         gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
         gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
         gl_call(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
-        gl_call(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_local_buffer));
+        gl_call(glTexImage2D(GL_TEXTURE_2D, 0, internal_format, m_width, m_height, 0, data_format, GL_UNSIGNED_BYTE, m_local_buffer));
     }
 
     gl_texture_2d::~gl_texture_2d()

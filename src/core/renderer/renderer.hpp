@@ -482,7 +482,14 @@ namespace core::renderer
      * @param fragment_shader The source code of the fragment shader.
      * @return A pointer to the created shader object.
      */
-    TRIMANA_API shader *create_shader(const std::string &vertex_shader, const std::string &fragment_shader);
+    TRIMANA_API sptr<shader> create_shader(const std::string &vertex_shader, const std::string &fragment_shader);
+
+    /**
+     * @brief Creates a shader object with the given file path.
+     * @param file_path The file path of the shader.
+     * @return A pointer to the created shader object.
+     */
+    TRIMANA_API sptr<shader> create_shader(const std::string& file_path);
 
     /**
      * @brief The base class for renderer APIs.
@@ -503,6 +510,21 @@ namespace core::renderer
             };
 
         public:
+            /**
+             * @brief Default constructor for the renderer_api class.
+             */
+            renderer_api() = default;
+
+            /**
+             * @brief Virtual destructor for the renderer_api class.
+             */
+            virtual ~renderer_api() = default;
+
+            /**
+             * @brief Initializes the renderer API.
+             */
+            virtual void init() = 0;
+
             /**
              * @brief Draw the indexed vertex array.
              * 
@@ -548,6 +570,12 @@ namespace core::renderer
     class TRIMANA_API render_command
     {
         public:
+
+            /**
+             * @brief Initializes the renderer.
+             */
+            static void init();
+
             /**
              * @brief Sets the clear color for the renderer.
              * @param color The color to set as the clear color.
@@ -622,6 +650,10 @@ namespace core::renderer
              */
             ~renderer() = default;
 
+            /**
+             * @brief Initializes the renderer.
+             */
+            static void init();
 
             /**
              * Submits a vertex array for rendering.

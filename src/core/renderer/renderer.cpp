@@ -35,12 +35,22 @@ namespace core::renderer
         }
     }
 
-    shader *create_shader(const std::string &vertex_shader, const std::string &fragment_shader)
+    sptr<shader> create_shader(const std::string &vertex_shader, const std::string &fragment_shader)
     {
         switch (renderer_api::get_api())
         {
             case renderer_api::api::none:       return nullptr;
-            case renderer_api::api::opengl:     return new gl_shader(vertex_shader, fragment_shader);
+            case renderer_api::api::opengl:     return std::make_shared<gl_shader>(vertex_shader, fragment_shader);
+            default:                            return nullptr;
+        }
+    }
+
+    sptr<shader> create_shader(const std::string & file_path)
+    {
+        switch (renderer_api::get_api())
+        {
+            case renderer_api::api::none:       return nullptr;
+            case renderer_api::api::opengl:     return std::make_shared<gl_shader>(file_path);
             default:                            return nullptr;
         }
     }
@@ -66,6 +76,16 @@ namespace core::renderer
 
     void renderer::end_scene()
     {
+    }
+
+    void render_command::init()
+    {
+        m_renderer_api->init();
+    }
+
+    void renderer::init()
+    {
+        render_command::init();
     }
 
     void renderer::submit(const sptr<shader>& shader_ptr, const sptr<vertex_array> &vertex_array, const glm::mat4& model_matrix)
@@ -95,5 +115,7 @@ namespace core::renderer
         m_view = glm::inverse(transform);
         m_view_projection = m_projection * m_view;
     }
+
+
 
 }

@@ -23,7 +23,7 @@ namespace engine::app
 
         private:
             core::sptr<core::renderer::shader> m_shader, m_texture_shader;
-            core::sptr<core::renderer::texture_2d> m_texture;
+            core::sptr<core::renderer::texture_2d> m_texture, m_texture_new;
             core::sptr<core::renderer::vertex_array> m_vertex_array_triangle;
             core::sptr<core::renderer::vertex_array> m_vertex_array_square;
 

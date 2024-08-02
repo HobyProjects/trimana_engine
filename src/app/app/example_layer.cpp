@@ -43,7 +43,8 @@ namespace engine::app
         m_shader.reset(create_shader("shaders/main_vertex.glsl", "shaders/main_fragment.glsl"));
         m_texture_shader.reset(create_shader("shaders/texture_vertex.glsl", "shaders/texture_fragment.glsl"));
 
-        m_texture = make_texture_2d("textures/logo-color.png");
+        m_texture = make_texture_2d("textures/logo-white.png");
+        m_texture_new = make_texture_2d("textures/logo-no-background.png");
         
         m_texture_shader->bind();
         m_texture_shader->set_uniform_1i("u_texture", 0);
@@ -136,8 +137,11 @@ namespace engine::app
         m_texture->bind();
         renderer::submit(m_texture_shader, m_vertex_array_square, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+        m_texture_new->bind();
+        renderer::submit(m_texture_shader, m_vertex_array_square, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-        //renderer::submit(m_shader, m_vertex_array_triangle);
+
+        // renderer::submit(m_shader, m_vertex_array_triangle);
         renderer::end_scene();
 
     }

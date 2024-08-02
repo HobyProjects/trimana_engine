@@ -17,6 +17,8 @@ namespace engine::app {
     events_receiver::set_eventts_callback(m_window, EVENTS_CALLBACK(application::on_events));
     input::target_window(m_window);
 
+    renderer::init();
+
     m_imgui_layer = std::make_shared<imgui_layer>(m_window);
     push_overlay(m_imgui_layer);
     push_overlay(std::make_shared<example_layer>());

@@ -396,6 +396,13 @@ namespace core::gapi::opengl
     {
         public:
             /**
+             * @brief Constructs a `gl_shader` object with the specified file path.
+             *
+             * @param path The path to the shader file.
+             */
+            gl_shader(const std::string& path);
+
+            /**
              * @brief Constructs a `gl_shader` object with the specified vertex and fragment shader source code.
              *
              * @param vertex_shader The source code of the vertex shader.
@@ -532,6 +539,14 @@ namespace core::gapi::opengl
              */
             std::string import_shader(const std::string &file_path) const;
 
+            /**
+             * @brief Processes the source code of a shader.
+             *
+             * @param source The source code of the shader.
+             * @return The processed source code of the shader.
+             */
+            std::unordered_map<GLenum, std::string> pre_process(const std::string &source);
+
         private:
             uint32_t m_program_id{NULL};
     };
@@ -551,6 +566,11 @@ namespace core::gapi::opengl
          * @brief Default destructor for the gl_api_base class.
          */
         ~gl_api_base() = default;
+
+        /**
+         * @brief Initializes the renderer API.
+         */
+        void init() override;
 
         /**
          * @brief Draws the indexed vertex array.
