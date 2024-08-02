@@ -34,17 +34,7 @@ namespace core::renderer
             default:                                return nullptr;
         }
     }
-
-    sptr<shader> create_shader(const std::string &vertex_shader, const std::string &fragment_shader)
-    {
-        switch (renderer_api::get_api())
-        {
-            case renderer_api::api::none:       return nullptr;
-            case renderer_api::api::opengl:     return std::make_shared<gl_shader>(vertex_shader, fragment_shader);
-            default:                            return nullptr;
-        }
-    }
-
+    
     sptr<shader> create_shader(const std::string & file_path)
     {
         switch (renderer_api::get_api())

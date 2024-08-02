@@ -40,8 +40,8 @@ namespace engine::app
         index_buffer_triangle.reset(create_index_buffers(indices, 3, draw_type::draw_static));
         m_vertex_array_triangle->set_index_buffer(index_buffer_triangle);
 
-        m_shader.reset(create_shader("shaders/main_vertex.glsl", "shaders/main_fragment.glsl"));
-        m_texture_shader.reset(create_shader("shaders/texture_vertex.glsl", "shaders/texture_fragment.glsl"));
+        m_shader = create_shader("shaders/main.glsl");
+        m_texture_shader = create_shader("shaders/texture.glsl");
 
         m_texture = make_texture_2d("textures/logo-white.png");
         m_texture_new = make_texture_2d("textures/logo-no-background.png");

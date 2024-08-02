@@ -475,15 +475,7 @@ namespace core::renderer
              */
             virtual bool set_uniform_mat3(const std::string &name, const glm::mat3 &value) = 0;
     };
-
-    /**
-     * @brief Creates a shader object with the given vertex and fragment shader source code.
-     * @param vertex_shader The source code of the vertex shader.
-     * @param fragment_shader The source code of the fragment shader.
-     * @return A pointer to the created shader object.
-     */
-    TRIMANA_API sptr<shader> create_shader(const std::string &vertex_shader, const std::string &fragment_shader);
-
+    
     /**
      * @brief Creates a shader object with the given file path.
      * @param file_path The file path of the shader.
