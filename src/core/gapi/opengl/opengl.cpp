@@ -340,7 +340,8 @@ namespace core::gapi::opengl
             return;
         }
 
-        std::vector<uint32_t> shader_ids(shaders.size());
+        std::vector<uint32_t> shader_ids{};
+        shader_ids.reserve(shaders.size());
 
         for(auto& type_n_shaders : shaders)
         {
@@ -405,7 +406,7 @@ namespace core::gapi::opengl
     std::string gl_shader::import_shader(const std::string &file_path)
     {
         std::string result;
-        std::ifstream infile(file_path, std::ios::in, std::ios::binary);
+        std::ifstream infile(file_path, std::ios::in | std::ios::binary);
         if(infile)
         {
             infile.seekg(0, std::ios::end);

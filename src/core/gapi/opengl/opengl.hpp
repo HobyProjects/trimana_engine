@@ -47,6 +47,7 @@
 #include <memory>
 #include <string>
 #include <sstream>
+#include <array>
 
 #include "log.hpp"
 #include "assert.hpp"
