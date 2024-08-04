@@ -46,6 +46,7 @@ target_include_directories(
         PRIVATE 
             ${TRIMANA_APP_SOURCES_DIR} 
             ${TRIMANA_CORE_INCLUDE_DIR}
+            ${STB_IMAGE_SOURCE_DIR}
 )
 
 target_link_libraries(

@@ -16,8 +16,6 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/window # Window source directory
     ${PROJECT_SOURCE_DIR}/src/core/layers # Layers source directory
     ${PROJECT_SOURCE_DIR}/src/core/inputs # Inputs source directory
-    ${PROJECT_SOURCE_DIR}/src/core/renderer # Renderer source directory
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl # OpenGL source directory
 )
 
 # Set the header files for the trimana_core library
@@ -37,9 +35,6 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
     ${PROJECT_SOURCE_DIR}/src/core/utils/time_steps.hpp # Time steps header file
 
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.hpp # Renderer header file
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/opengl.hpp # OpenGL header file
-
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -52,9 +47,6 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.cpp # Layer stack source file
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
-
-    ${PROJECT_SOURCE_DIR}/src/core/renderer/renderer.cpp # Renderer source file    
-    ${PROJECT_SOURCE_DIR}/src/core/gapi/opengl/opengl.cpp # OpenGL error source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
@@ -65,7 +57,7 @@ if(NOT BUILD_SHARED_LIBS)
         ${TRIMANA_CORE_LIBRARY_HEADERS} # Headers for the library
         ${TRIMANA_CORE_LIBRARY_SOURCES} # Sources for the library
         ${IMGUI_HEADERS} # Headers for the ImGui library
-        ${STB_IMAGE_HEADER} # Header for the STB image library
+        ${STB_IMAGE_HEADER} # Header for the STB image library      
     )
 
 # If BUILD_SHARED_LIBS is set, create a shared library
@@ -101,10 +93,8 @@ target_include_directories(
     # - IMGUI_DIR: The directory for the ImGui library.
     # - IMGUI_BACKENDS_DIR: The directory for the ImGui backends.
     ${IMGUI_DIR}
-    ${IMGUI_BACKENDS_DIR}
-
-    # The following variables are used to specify the directories for STB image library.
-    ${STB_IMAGE_SOURCE_DIR}
+    ${IMGUI_BACKENDS_DIR}    
+    ${STB_IMAGE_SOURCE_DIR} # The directory for the STB image library
 )
 
 if(NOT BUILD_SHARED_LIBS)
@@ -115,6 +105,7 @@ if(NOT BUILD_SHARED_LIBS)
         libglew_static # Link glew library
         ImGui::ImGui # Link imgui library
         glm::glm # Link glm library
+        gapi::header_only # Link gapi header only library
     )   
 else()
     target_link_libraries(
@@ -124,6 +115,7 @@ else()
         libglew_shared # Link glew library
         ImGui::ImGui # Link imgui library
         glm::glm # Link glm library
+        gapi::header_only # Link gapi header only library
     )
 endif()
 

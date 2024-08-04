@@ -5,7 +5,7 @@
 #include "assert.hpp"
 
 #ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
-#include "opengl.hpp"
+#include <gapi/gapi.hpp>
 #endif
 
 namespace core::windows
@@ -147,7 +147,7 @@ namespace core::windows
     {
         int32_t width{NULL};  /**< The width of the framebuffer of the window */
         int32_t height{NULL}; /**< The height of the framebuffer of the window */
-    };
+    };   
 
     /**
      * @brief Represents a window object.
@@ -267,16 +267,16 @@ namespace core::windows
          */
         void swap_buffers() const;
 
-#ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
+        #ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
 
         /**
          * @brief Retrieves the OpenGL context associated with the window.
          *
          * @return The OpenGL context associated with the window.
          */
-        sptr<core::gapi::opengl::gl_context> get_context() const { return m_context; }
+        const std::shared_ptr<gapi::opengl::gl_context>& get_context() const { return m_context; }
 
-#endif // TRIMANA_PRIMARY_RENDERER_OPENGL
+        #endif // TRIMANA_PRIMARY_RENDERER_OPENGL
 
     private:
         /**
@@ -344,7 +344,7 @@ namespace core::windows
          */
         window_framebuffer_sizes m_window_framebuffer{};
 
-#ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
+        #ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
 
         /**
          * @brief m_context - The OpenGL context.
@@ -352,9 +352,9 @@ namespace core::windows
          * This member variable holds the OpenGL context associated with the window.
          * The OpenGL context is used to render graphics to the window.
          */
-        sptr<core::gapi::opengl::gl_context> m_context{nullptr};
+        std::shared_ptr<gapi::opengl::gl_context> m_context{nullptr};
 
-#endif
+        #endif
 
     };
 

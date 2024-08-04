@@ -284,7 +284,7 @@ namespace core::layers
 
         auto window_ptr = m_window.lock();
         ImGui_ImplGlfw_InitForOpenGL(window_ptr->get_native_window(), false);
-        ImGui_ImplOpenGL3_Init(window_ptr->get_context()->get_info()->glsl_version().c_str());
+        ImGui_ImplOpenGL3_Init(window_ptr->get_context()->info()->language().c_str());
 
         if (m_color_scheme == ui_color_scheme::dark)
             use_color_scheme_dark();

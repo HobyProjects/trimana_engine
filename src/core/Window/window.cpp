@@ -103,7 +103,7 @@ namespace core::windows
             glfwGetFramebufferSize(m_window, &m_window_framebuffer.width, &m_window_framebuffer.height);
 
             // Make the window the current context
-            m_context = std::make_shared<core::gapi::opengl::gl_context>(m_window);
+            m_context = gapi::make_context<gapi::opengl::gl_context>(m_window);
             m_context->init();
 
             // Set the window's attributes
@@ -139,7 +139,7 @@ namespace core::windows
     void window::swap_buffers() const
     {
         if(m_attributes.is_vsync_enabled)
-            m_context->swap_buffers();
+            m_context->swap();
     }
 
 } // namespace trimana_core::window
