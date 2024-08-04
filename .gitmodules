@@ -17,3 +17,6 @@
 [submodule "vendors/stb"]
 	path = vendors/stb
 	url = https://github.com/nothings/stb.git
+[submodule "vendors/gapi"]
+	path = vendors/gapi
+	url = https://github.com/HobyProjects/gapi.git
