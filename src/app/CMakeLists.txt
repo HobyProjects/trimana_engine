@@ -26,7 +26,11 @@ else()
     add_compile_definitions(TRIMANA_BUILD_SHARED) # Define the TRIMANA_BUILD_SHARED macro
 endif()
 
-add_executable(${TRIMANA_APP} ${TRIMANA_APP_SOURCES} ${TRIMANA_APP_HEADERS})
+add_executable(
+    ${TRIMANA_APP} 
+        ${TRIMANA_APP_HEADERS} 
+        ${TRIMANA_APP_SOURCES} 
+)
 
 add_custom_target(
     TRIMANA_RESOURCES ALL
@@ -37,8 +41,16 @@ add_custom_target(
 )
 add_dependencies(${TRIMANA_APP} TRIMANA_RESOURCES)
 
-target_include_directories(${TRIMANA_APP} PRIVATE ${TRIMANA_APP_SOURCES_DIR} ${TRIMANA_CORE_INCLUDE_DIR})
+target_include_directories(
+    ${TRIMANA_APP} 
+        PRIVATE 
+            ${TRIMANA_APP_SOURCES_DIR} 
+            ${TRIMANA_CORE_INCLUDE_DIR}
+)
+
 target_link_libraries(
-    ${TRIMANA_APP} PRIVATE 
-    TRIMANA::CORE # Link trimana core library
+    ${TRIMANA_APP} 
+        PRIVATE 
+            TRIMANA::CORE # Link trimana core library
+            gapi::header_only # Link gapi header only library
 )

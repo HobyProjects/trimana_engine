@@ -7,6 +7,8 @@
 #include <renderer/renderer.hpp>
 #include <layers/imgui_layer.hpp>
 
+#include <gapi/gapi_impl_opengl.hpp>
+
 namespace engine::app
 {
     class example_layer : public core::layers::layer{
@@ -26,6 +28,7 @@ namespace engine::app
             core::sptr<core::renderer::texture_2d> m_texture, m_texture_new;
             core::sptr<core::renderer::vertex_array> m_vertex_array_triangle;
             core::sptr<core::renderer::vertex_array> m_vertex_array_square;
+            std::shared_ptr<gapi::vertex_array> m_test_vertex_array;
 
             core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
             glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};

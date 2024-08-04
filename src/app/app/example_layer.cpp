@@ -85,6 +85,8 @@ namespace engine::app
         }
 
         m_vertex_array_square->unbind();
+
+        m_test_vertex_array = gapi::make_varray<gapi::opengl::gl_vertex_array>();
     }
 
     void example_layer::on_detach()

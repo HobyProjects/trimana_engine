@@ -20,13 +20,15 @@ endif()
 set(ONLY_LIBS ON)
 add_subdirectory("glew-cmake" EXCLUDE_FROM_ALL)
 
-
 # # assimp lib configuration
 # add_subdirectory("assimp" EXCLUDE_FROM_ALL)
 
 # Importing STB image lib configure
 set(STB_IMAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/vendors/stb CACHE PATH "Path to stb image library")
 set(STB_IMAGE_HEADER ${PROJECT_SOURCE_DIR}/vendors/stb/stb_image.h CACHE INTERNAL "Path to stb_image header")
+
+# configure GAPI lib
+add_subdirectory("gapi" EXCLUDE_FROM_ALL)
 
 # #imgui configure
 set(IMGUI_LIBRARY imgui CACHE INTERNAL "Imgui library name")
