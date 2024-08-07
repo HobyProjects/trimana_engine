@@ -274,7 +274,7 @@ namespace core::windows
          *
          * @return The OpenGL context associated with the window.
          */
-        const std::shared_ptr<gapi::opengl::gl_context>& get_context() const { return m_context; }
+        const std::shared_ptr<gapi::opengl::context>& get_context() const { return m_context; }
 
         #endif // TRIMANA_PRIMARY_RENDERER_OPENGL
 
@@ -352,7 +352,7 @@ namespace core::windows
          * This member variable holds the OpenGL context associated with the window.
          * The OpenGL context is used to render graphics to the window.
          */
-        std::shared_ptr<gapi::opengl::gl_context> m_context{nullptr};
+        std::shared_ptr<ggl::context> m_context{nullptr};
 
         #endif
 

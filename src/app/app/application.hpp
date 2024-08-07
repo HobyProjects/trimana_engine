@@ -7,7 +7,6 @@
 #include <layers/layer.hpp>
 #include <layers/layer_stack.hpp>
 #include <window/window.hpp>
-
 #include <utils/time_steps.hpp>
 
 namespace engine::app {
@@ -146,4 +145,5 @@ namespace engine::app {
   };
 
 }  // namespace engine::app
+
 #endif  // __application_h__  

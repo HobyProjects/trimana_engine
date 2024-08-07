@@ -6,16 +6,14 @@ using namespace core::events;
 using namespace core::inputs;
 using namespace core::layers;
 using namespace core::timers;
+using namespace gapi::renderer;
 
 namespace engine::app {
 
-  application::application() 
-  {
+  application::application() {
     m_window = std::make_shared<window>("Trimana Engine");
     events_receiver::set_eventts_callback(m_window, EVENTS_CALLBACK(application::on_events));
     input::target_window(m_window);
-
-    gapi::renderer::init();
 
     m_imgui_layer = std::make_shared<imgui_layer>(m_window);
     push_overlay(m_imgui_layer);
@@ -39,7 +37,7 @@ namespace engine::app {
       {
         for (std::shared_ptr<layer> layer : m_layer_stack) 
           layer->on_ui_updates();
-      }
+      } 
       m_imgui_layer->end();
 
       ///////////////////////////////////////////////////////////////////

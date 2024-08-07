@@ -5,8 +5,7 @@
 #include <window/window.hpp>
 #include <utils/time_steps.hpp>
 #include <layers/imgui_layer.hpp>
-
-#include <gapi/gapi.hpp>
+#include <gapi/gapi_renderer.hpp>
 
 namespace engine::app
 {
@@ -27,6 +26,7 @@ namespace engine::app
             std::shared_ptr<gapi::texture> m_texture, m_texture_new;
             std::shared_ptr<gapi::vertex_array> m_vertex_array_triangle;
             std::shared_ptr<gapi::vertex_array> m_vertex_array_square;
+            std::shared_ptr<gapir::gl_renderer> m_renderer;
 
             // core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
             // glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};

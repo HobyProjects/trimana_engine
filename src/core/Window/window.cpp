@@ -103,7 +103,7 @@ namespace core::windows
             glfwGetFramebufferSize(m_window, &m_window_framebuffer.width, &m_window_framebuffer.height);
 
             // Make the window the current context
-            m_context = gapi::make_context<gapi::opengl::gl_context>(m_window);
+            m_context = ggl::make_context(m_window);
             m_context->init();
 
             // Set the window's attributes

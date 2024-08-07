@@ -54,6 +54,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
 
     ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi_stb_image.cpp # GAPI STB image source include
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi_impl_opengl.cpp # GAPI OpenGL source file
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library

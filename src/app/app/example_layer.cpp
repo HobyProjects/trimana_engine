@@ -1,14 +1,19 @@
 #include "example_layer.hpp"
+#include <gapi/gapi_renderer.hpp>
 
 using namespace core::inputs;
 using namespace core::events;
 using namespace core::layers;
 using namespace core::timers;
+using namespace gapi;
 
 namespace engine::app
 {
+
     void example_layer::on_attach()
     {
+        m_renderer = std::make_shared<gapir::gl_renderer>();
+
         float vertices[] = 
         {
             // Position           // Color
@@ -20,33 +25,19 @@ namespace engine::app
 
         unsigned int indices[3] = {0, 1, 2};
 
-        m_vertex_array_triangle = gapi::make_varray<gapi::opengl::gl_vertex_array>();
+        m_vertex_array_triangle = ggl::make_array();
         m_vertex_array_triangle->bind();
-
-        std::shared_ptr<gapi::vertex_buffer> vertex_buffers_triangle = 
-            gapi::make_vertex<gapi::opengl::gl_vertex_buffer>(vertices, sizeof(vertices), gapi::opengl::gl_draw_type::static_daw);
+        std::shared_ptr<gapi::vertex_buffer> vertex_buffers_triangle = ggl::make_vertex(vertices, sizeof(vertices), ggl::DRAW_STATIC);
 
         gapi::buffer_layout layout_triangle = {
-            { "a_position", gapi::component::xyz, gapi::data_types::f3 },
-            { "a_color", gapi::component::rgba, gapi::data_types::f4  },
+            { "a_position",  XYZ, F3  },
+            { "a_color",    RGBA, F4  },
         };
 
         vertex_buffers_triangle->configure_layout(layout_triangle);
-        m_vertex_array_triangle->emplace_vbuffer(vertex_buffers_triangle);
-        
-
-        std::shared_ptr<gapi::index_buffer> index_buffer_triangle = 
-            gapi::make_index<gapi::opengl::gl_index_buffer>(indices, 3, gapi::opengl::gl_draw_type::static_daw);
-        m_vertex_array_triangle->emplace_ibuffer(index_buffer_triangle);
-
-        m_shader = gapi::make_shader<gapi::opengl::gl_shader>("main shader", "shaders/main.glsl");
-        m_texture_shader = gapi::make_shader<gapi::opengl::gl_shader>("texture shader", "shaders/texture.glsl");
-
-        m_texture = gapi::make_texture<gapi::opengl::gl_texture_2d>("textures/logo-white.png");
-        m_texture_new = gapi::make_texture<gapi::opengl::gl_texture_2d>("textures/logo-no-background.png");
-        
-        m_texture_shader->bind();
-        m_texture_shader->uniform("u_texture", (uint32_t)0);
+        m_vertex_array_triangle->emplace_vertex(vertex_buffers_triangle);
+        std::shared_ptr<index_buffer> index_buffer_triangle = ggl::make_index(indices, 3, ggl::DRAW_STATIC);
+        m_vertex_array_triangle->emplace_index(index_buffer_triangle);
 
         // ///////////////////////////////////////////////////////////////////////////////
 
@@ -60,30 +51,36 @@ namespace engine::app
             -0.5f,  0.5f, 0.0f,     0.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f
         };
 
-        // unsigned int square_indices[6] = {0, 1, 2, 2, 3, 0};
+        unsigned int square_indices[6] = {0, 1, 2, 2, 3, 0};
 
-        // m_vertex_array_square.reset(create_vertex_array());
-        // m_vertex_array_square->bind();
-        // {
-        // std::shared_ptr<vertex_buffers> vertex_buffers_square{nullptr};
-        // vertex_buffers_square.reset(create_vertex_buffers(square_vertices, sizeof(square_vertices), draw_type::draw_static));
+        m_vertex_array_square = ggl::make_array();
+        m_vertex_array_square->bind();
+        {
+            std::shared_ptr<vertex_buffer> vertex_buffers_square = ggl::make_vertex(square_vertices, sizeof(square_vertices), ggl::DRAW_STATIC);
 
-        // buffer_layout layout_square = {
-        //     {shader_data_type::float_3, "a_position", element_components::xyz},
-        //     {shader_data_type::float_2, "a_texcoord", element_components::uv},
-        //     {shader_data_type::float_4, "a_color", element_components::rgba}
-        // };
+            buffer_layout layout_square = {
+                { "a_position", XYZ,  F3 },
+                { "a_texcoord",  UV,  F2 },
+                { "a_color",    RGBA, F4 }
+            };
 
-        // vertex_buffers_square->set_layout(layout_square);
-        // m_vertex_array_square->emplace_vertex_buffer(vertex_buffers_square);
+            vertex_buffers_square->configure_layout(layout_square);
+            m_vertex_array_square->emplace_vertex(vertex_buffers_square);
+            std::shared_ptr<index_buffer> index_buffer_square = ggl::make_index(square_indices, 6,  ggl::DRAW_STATIC);
+            m_vertex_array_square->emplace_index(index_buffer_square);
 
-        // std::shared_ptr<index_buffers> index_buffer_square{nullptr};
-        // index_buffer_square.reset(create_index_buffers(square_indices, 6, draw_type::draw_static));
-        // m_vertex_array_square->set_index_buffer(index_buffer_square);
+        }
+        m_vertex_array_square->unbind();
 
-        // }
+        m_shader = ggl::make_shader("main shader", "shaders/main.glsl");
+        m_texture_shader = ggl::make_shader("texture shader", "shaders/texture.glsl");
 
-        // m_vertex_array_square->unbind();
+        m_texture = ggl::make_texture2d("textures/logo-white.png", ggl::TEX_FILTER_LINEAR, ggl::TEX_WRAP_CLAMP);
+        m_texture_new = make_texture2d("textures/logo-no-background.png", ggl::TEX_FILTER_LINEAR, ggl::TEX_WRAP_CLAMP);
+        
+        m_texture_shader->bind();
+        m_texture_shader->uniform("u_texture", (uint32_t)0);
+
     }
 
     void example_layer::on_detach()
@@ -143,6 +140,14 @@ namespace engine::app
         // // renderer::submit(m_shader, m_vertex_array_triangle);
         // renderer::end_scene();
 
+
+        ////////////////////////////////////////////////////////////////////
+
+        m_renderer->clear_color(0.1f, 0.1f, 0.1f, 1.0f);
+        m_renderer->clear();
+
+        m_shader->bind();
+        m_renderer->submit(m_vertex_array_triangle);
     }
 
     void example_layer::on_ui_updates()
