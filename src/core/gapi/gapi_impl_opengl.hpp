@@ -1,5 +1,14 @@
 #pragma once
 
+#include <GL/glew.h>
+
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
+
 #include <stb_image.h>
 #include "gapi.hpp"
 
@@ -199,10 +208,10 @@ namespace gapi::opengl{
             virtual void bind(uint32_t slot = 0) const override;
             [[maybe_unused]] virtual void unbind() const override;
 
-            virtual uint32_t id() const override { return m_id; }
-            virtual int32_t width() const override { return m_width; }
-            virtual int32_t height() const override { return m_height; }
-            virtual int32_t channels() const override { return m_channels; }
+            [[maybe_unused]] virtual uint32_t id() const override { return m_id; }
+            [[maybe_unused]] virtual int32_t width() const override { return m_width; }
+            [[maybe_unused]] virtual int32_t height() const override { return m_height; }
+            [[maybe_unused]] virtual int32_t channels() const override { return m_channels; }
             [[maybe_unused]] virtual uint8_t* data() const override { return m_data; }
         
         private:

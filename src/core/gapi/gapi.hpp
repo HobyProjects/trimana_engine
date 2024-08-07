@@ -16,21 +16,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
-#if !defined(__glew_h__) || !defined(__GLEW_H__)
-#include <GL/glew.h>
-#endif
-
-#ifndef _glfw3_h_
-#ifndef GLFW_INCLUDE_NONE
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#endif
-#endif
-
-#ifdef APIENTRY
-#undef APIENTRY
-#endif
-
 #include <unordered_map>
 #include <filesystem>
 #include <fstream>
