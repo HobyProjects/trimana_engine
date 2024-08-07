@@ -23,11 +23,10 @@ namespace engine::app
             void on_event(core::events::event& e) override;
 
         private:
-            // core::sptr<core::renderer::shader> m_shader, m_texture_shader;
-            // core::sptr<core::renderer::texture_2d> m_texture, m_texture_new;
-            // core::sptr<core::renderer::vertex_array> m_vertex_array_triangle;
-            // core::sptr<core::renderer::vertex_array> m_vertex_array_square;
-            std::shared_ptr<gapi::vertex_array> m_test_vertex_array;
+            std::shared_ptr<gapi::shader> m_shader, m_texture_shader;
+            std::shared_ptr<gapi::texture> m_texture, m_texture_new;
+            std::shared_ptr<gapi::vertex_array> m_vertex_array_triangle;
+            std::shared_ptr<gapi::vertex_array> m_vertex_array_square;
 
             // core::renderer::orthographic_camera m_camera{-1.0f, 1.0f, -1.0f, 1.0f};
             // glm::vec3 m_camera_position{0.0f, 0.0f, 0.0f};

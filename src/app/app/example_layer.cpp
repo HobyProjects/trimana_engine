@@ -3,63 +3,62 @@
 using namespace core::inputs;
 using namespace core::events;
 using namespace core::layers;
-using namespace core::renderer;
 using namespace core::timers;
 
 namespace engine::app
 {
     void example_layer::on_attach()
     {
-        // float vertices[] = 
-        // {
-        //     // Position           // Color
-        //     -0.5f, -0.5f, 0.0f,   0.5f, 1.0f, 0.5f, 1.0f,
-        //      0.5f, -0.5f, 0.0f,   1.0f, 0.5f, 0.0f, 1.0f,
-        //      0.0f,  0.5f, 0.0f,   0.5f, 1.0f, 0.5f, 1.0f
+        float vertices[] = 
+        {
+            // Position           // Color
+            -0.5f, -0.5f, 0.0f,   0.5f, 1.0f, 0.5f, 1.0f,
+             0.5f, -0.5f, 0.0f,   1.0f, 0.5f, 0.0f, 1.0f,
+             0.0f,  0.5f, 0.0f,   0.5f, 1.0f, 0.5f, 1.0f
 
-        // };
+        };
 
-        // m_vertex_array_triangle.reset(create_vertex_array());
-        // m_vertex_array_triangle->bind();
+        unsigned int indices[3] = {0, 1, 2};
 
-        // std::shared_ptr<vertex_buffers> vertex_buffers_triangle{nullptr};
-        // vertex_buffers_triangle.reset(create_vertex_buffers(vertices, sizeof(vertices), draw_type::draw_static));
+        m_vertex_array_triangle = gapi::make_varray<gapi::opengl::gl_vertex_array>();
+        m_vertex_array_triangle->bind();
 
-        // buffer_layout layout_triangle = {
-        //     {shader_data_type::float_3, "a_position", element_components::xyz},
-        //     {shader_data_type::float_4, "a_color", element_components::rgba},
-        // };
+        std::shared_ptr<gapi::vertex_buffer> vertex_buffers_triangle = 
+            gapi::make_vertex<gapi::opengl::gl_vertex_buffer>(vertices, sizeof(vertices), gapi::opengl::gl_draw_type::static_daw);
 
-        // vertex_buffers_triangle->set_layout(layout_triangle);
+        gapi::buffer_layout layout_triangle = {
+            { "a_position", gapi::component::xyz, gapi::data_types::f3 },
+            { "a_color", gapi::component::rgba, gapi::data_types::f4  },
+        };
 
-        // m_vertex_array_triangle->emplace_vertex_buffer(vertex_buffers_triangle);
+        vertex_buffers_triangle->configure_layout(layout_triangle);
+        m_vertex_array_triangle->emplace_vbuffer(vertex_buffers_triangle);
         
-        // unsigned int indices[3] = {0, 1, 2};
 
-        // std::shared_ptr<index_buffers> index_buffer_triangle{nullptr};
-        // index_buffer_triangle.reset(create_index_buffers(indices, 3, draw_type::draw_static));
-        // m_vertex_array_triangle->set_index_buffer(index_buffer_triangle);
+        std::shared_ptr<gapi::index_buffer> index_buffer_triangle = 
+            gapi::make_index<gapi::opengl::gl_index_buffer>(indices, 3, gapi::opengl::gl_draw_type::static_daw);
+        m_vertex_array_triangle->emplace_ibuffer(index_buffer_triangle);
 
-        // m_shader = create_shader("shaders/main.glsl");
-        // m_texture_shader = create_shader("shaders/texture.glsl");
+        m_shader = gapi::make_shader<gapi::opengl::gl_shader>("main shader", "shaders/main.glsl");
+        m_texture_shader = gapi::make_shader<gapi::opengl::gl_shader>("texture shader", "shaders/texture.glsl");
 
-        // m_texture = make_texture_2d("textures/logo-white.png");
-        // m_texture_new = make_texture_2d("textures/logo-no-background.png");
+        m_texture = gapi::make_texture<gapi::opengl::gl_texture_2d>("textures/logo-white.png");
+        m_texture_new = gapi::make_texture<gapi::opengl::gl_texture_2d>("textures/logo-no-background.png");
         
-        // m_texture_shader->bind();
-        // m_texture_shader->set_uniform_1i("u_texture", 0);
+        m_texture_shader->bind();
+        m_texture_shader->uniform("u_texture", (uint32_t)0);
 
         // ///////////////////////////////////////////////////////////////////////////////
 
-        // // Square
+        // Square
 
-        // float square_vertices[] = {
-        //     // Position             //Tex coords    // Color
-        //     -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
-        //      0.5f, -0.5f, 0.0f,     1.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
-        //      0.5f,  0.5f, 0.0f,     1.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f,
-        //     -0.5f,  0.5f, 0.0f,     0.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f
-        // };
+        float square_vertices[] = {
+            // Position             //Tex coords    // Color
+            -0.5f, -0.5f, 0.0f,     0.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+             0.5f, -0.5f, 0.0f,     1.0f, 0.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+             0.5f,  0.5f, 0.0f,     1.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f,
+            -0.5f,  0.5f, 0.0f,     0.0f, 1.0f,     0.2f, 0.3f, 0.8f, 1.0f
+        };
 
         // unsigned int square_indices[6] = {0, 1, 2, 2, 3, 0};
 
@@ -85,8 +84,6 @@ namespace engine::app
         // }
 
         // m_vertex_array_square->unbind();
-
-        m_test_vertex_array = gapi::make_varray<gapi::opengl::gl_vertex_array>();
     }
 
     void example_layer::on_detach()
@@ -151,7 +148,7 @@ namespace engine::app
     void example_layer::on_ui_updates()
     {
         ImGui::Begin("Settings");
-        ImGui::ColorEdit4("Square Color", glm::value_ptr(m_color));
+        // ImGui::ColorEdit4("Square Color", glm::value_ptr(m_color));
         ImGui::End();
     }
 

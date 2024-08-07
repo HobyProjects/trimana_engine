@@ -53,5 +53,4 @@ target_link_libraries(
     ${TRIMANA_APP} 
         PRIVATE 
             TRIMANA::CORE # Link trimana core library
-            gapi::header_only # Link gapi header only library
 )

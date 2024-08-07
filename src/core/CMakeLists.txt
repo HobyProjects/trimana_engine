@@ -16,6 +16,7 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/window # Window source directory
     ${PROJECT_SOURCE_DIR}/src/core/layers # Layers source directory
     ${PROJECT_SOURCE_DIR}/src/core/inputs # Inputs source directory
+    ${PROJECT_SOURCE_DIR}/src/core/gapi # GAPI source directory
 )
 
 # Set the header files for the trimana_core library
@@ -35,6 +36,10 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.hpp # Input header file
     ${PROJECT_SOURCE_DIR}/src/core/utils/time_steps.hpp # Time steps header file
 
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi.hpp # GAPI header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi_renderer.hpp # GAPI renderer header file
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi_impl_opengl.hpp # GAPI OpenGL header file
+
     CACHE INTERNAL "Trimana core library headers"
 )
 
@@ -47,6 +52,8 @@ set(
     ${PROJECT_SOURCE_DIR}/src/core/layers/layer_stack.cpp # Layer stack source file
     ${PROJECT_SOURCE_DIR}/src/core/layers/imgui_layer.cpp # ImGui layer source file
     ${PROJECT_SOURCE_DIR}/src/core/inputs/input.cpp # Input source file
+
+    ${PROJECT_SOURCE_DIR}/src/core/gapi/gapi_stb_image.cpp # GAPI STB image source include
 )
 
 # If BUILD_SHARED_LIBS is not set, create a static library
@@ -105,7 +112,6 @@ if(NOT BUILD_SHARED_LIBS)
         libglew_static # Link glew library
         ImGui::ImGui # Link imgui library
         glm::glm # Link glm library
-        gapi::header_only # Link gapi header only library
     )   
 else()
     target_link_libraries(
@@ -115,7 +121,6 @@ else()
         libglew_shared # Link glew library
         ImGui::ImGui # Link imgui library
         glm::glm # Link glm library
-        gapi::header_only # Link gapi header only library
     )
 endif()
 

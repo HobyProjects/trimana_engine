@@ -5,7 +5,7 @@
 #include "assert.hpp"
 
 #ifdef TRIMANA_PRIMARY_RENDERER_OPENGL
-#include <gapi/gapi.hpp>
+#include "gapi_impl_opengl.hpp"
 #endif
 
 namespace core::windows

@@ -9,7 +9,6 @@
 #include <window/window.hpp>
 
 #include <utils/time_steps.hpp>
-#include <renderer/renderer.hpp>
 
 namespace engine::app {
 

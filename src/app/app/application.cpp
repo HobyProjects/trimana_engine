@@ -5,8 +5,6 @@ using namespace core::windows;
 using namespace core::events;
 using namespace core::inputs;
 using namespace core::layers;
-using namespace core::renderer;
-using namespace core::gapi::opengl;
 using namespace core::timers;
 
 namespace engine::app {
@@ -17,7 +15,7 @@ namespace engine::app {
     events_receiver::set_eventts_callback(m_window, EVENTS_CALLBACK(application::on_events));
     input::target_window(m_window);
 
-    renderer::init();
+    gapi::renderer::init();
 
     m_imgui_layer = std::make_shared<imgui_layer>(m_window);
     push_overlay(m_imgui_layer);
